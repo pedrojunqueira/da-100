@@ -14,7 +14,7 @@ Azure Doc: [Get Data](https://docs.microsoft.com/en-gb/learn/modules/get-data/)
 	- Local
 	- OnDrive for business. If any changes PBI automatically updates
 	- OnDrive personal. To update regularly need to opt to "Keep me signed". Also check if it allowed by the organization Sys Admin
-	- Sharepoint - Team Sites. Works  similar to OneDrive business but connects to the URL or Root Folder
+	- SharePoint - Team Sites. Works  similar to OneDrive business but connects to the URL or Root Folder
 
 - Importing data options
 	- Load the data: straight into PBI desktop
@@ -26,30 +26,42 @@ Azure Doc: [Get Data](https://docs.microsoft.com/en-gb/learn/modules/get-data/)
 	- Microsoft Account
 - To use a query statement to import data use the advanced options
 
-- To change data source settings can be done from the PBI Menu (Home>Query>Transform Data> Data Source Settting
-		or from within the PowerQuery (Data Source >Data Source Settting)
+- To change data source settings can be done from the PBI Menu (Home>Query>Transform Data> Data Source Stetting
+		or from within the PowerQuery (Data Source >Data Source Stetting)
+
+- Importing folder and combining file (binary)
+	-  If you have multiple files that have the same schema, combine them into a single logical table
+	[Azure Docs](https://docs.microsoft.com/en-us/power-bi/transform-model/desktop-combine-binaries) 
 
 - Using SQL statements. Do not use the * (wildcard) as you may be importing redundant data
 - Only import the data that you need for the report
-- Better tham creating a SQL statement is to create a view in the DB and let Power query do the query folding
+- Better than creating a SQL statement is to create a view in the DB and let Power query do the query folding
 
 - Connecting to a CosmoDB (Azure)
 - Select connection (Others)
 - If you are connecting to an endpoint for the first time, as you are in this example, make sure that you enter your account key.
 
 - Importing Json
-- When importing Json the file needs to be formated in Power Query to a tabular format before go to PBI desktop
+- When importing Json the file needs to be formatted in Power Query to a tabular format before go to PBI desktop
 - A Record in a document database need to use the "Expander" then data will be in a tabular format ready to be imported for modelling
 
 - Selecting a storage mode. 
 [Azure Docs](https://docs.microsoft.com/en-us/power-bi/transform-model/desktop-storage-mode)
 
 - Import : Data loaded and resides in the PBI file (.pbix). Data refresh as manually done.
-- DirectQuery: allows you to query the data in the data source directly and not import a copy into Power BI. Always get the latest data
+- DirectQuery: allows you to query the data in the data source directly and not import a copy into Power BI. 
+  data gets refreshed as you interact with visualizations 
+  -	When in direct query mode there is no support for parent child relationship in DAX
+  - Other DirectQuery [limitations](https://docs.microsoft.com/en-us/power-bi/connect-data/desktop-directquery-about#modeling-limitations)
+	- No Calculated tables
+	- No scalar Dax functions such as `left()` for calculated columns
+	- Max length of text in columns 32,764
+	- No Built in date hierarchy
+Always get the latest data
 - Dual: 
 
 - Mode Change: Is possible to change import to Direct Query but not from Direct Query to Import. 
-- If a import mode is changed to Query mode this is ireversible
+- If a import mode is changed to Query mode this is irreversible
 
 Analysis Services vs. SQL Server
 
@@ -59,7 +71,7 @@ Similarities
 - Pick the cube you want to use.
 - Select which tables you need.
 
-Diferences
+Differences
 
 - Analysis Services cubes have calculations already in the cube, which will be discussed in more detail later.
 - If you don’t need an entire table, you can query the data directly. 
@@ -74,6 +86,7 @@ Diferences
 				without having to import them all into Power BI. Azure Analysis Services can have a fast refresh schedule , 
 				which means that when data is refreshed in the service, Power BI reports will immediately be updated, 
 				without the need to initiate a Power BI refresh schedule.
+- Analysis Services Multidimentional can only connect life. It does not import. [Reference Docs](https://docs.microsoft.com/en-us/power-bi/connect-data/desktop-ssas-multidimensional)
 
 
 - Query folding. 
@@ -97,20 +110,22 @@ Diferences
 
 - [Power Query ](https://docs.microsoft.com/en-gb/learn/modules/clean-data-power-bi/2-shape-data)
 	- All steps are recorded 
-	- Promote headers can use the promote hearder in the Home Ribbon session or click the table icon next to first column (use first row as header)
+	- Promote headers can use the promote header in the Home Ribbon session or click the table icon next to first column (use first row as header)
 	- Can remove top N rows
 	- Can delete columns by selecting the ones you need or you can select the ones you want to keep then delete the others
-	- You can unpivot columns by selecting the columns to unpivot and the column names will be atributes and the numeric value will be value
-	- Pivot the columns is the oposite of unpivot and used to sumirize and agregate data
+	- You can unpivot columns by selecting the columns to unpivot and the column names will be attributes and the numeric value will be value
+	- Pivot the columns is the opposite of unpivot and used to summarize and aggregate data
+	- Visualize query dependency
+		- Tab "View" -> Query dependency
 
 - Improving data
 	- Rename columns to more meaningful names
-	- Replace values to meaninful and fix data issues, spelling or errors. Replace nulls with 0 (zeros)
+	- Replace values to meaningful and fix data issues, spelling or errors. Replace nulls with 0 (zeros)
 	- Remove duplicates
 
 - Columns name conventions
-	- Replace undescore with space
-	- Remove prefixes and sufixes
+	- Replace underscore with space
+	- Remove prefixes and suffixes
 	
 - Evaluate and change data types
 	- Can be changed in power query and in power bi desktop reporting view by using columns tools
@@ -123,9 +138,10 @@ Diferences
 
 ### Shape and transform data 
 
-	- Profile the data
+
+- Profile the date
 	- Distribution: HIstogram of count of distinct and unique values
-	- Quality: check empty, validity % and errors
+	- Quality: check empty, validity percentage and errors
 	- Profile: Column in depth statistics
 
 - Use editor to modify M code
