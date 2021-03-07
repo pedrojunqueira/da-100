@@ -26,8 +26,8 @@ Azure Doc: [Get Data](https://docs.microsoft.com/en-gb/learn/modules/get-data/)
 	- Microsoft Account
 - To use a query statement to import data use the advanced options
 
-- To change data source settings can be done from the PBI Menu (Home>Query>Transform Data> Data Source Stetting
-		or from within the PowerQuery (Data Source >Data Source Stetting)
+- To change data source settings can be done from the PBI Menu (Home>Query>Transform Data> Data Source Settings
+		or from within the PowerQuery (Data Source >Data Source Settings)
 
 - Importing folder and combining file (binary)
 	-  If you have multiple files that have the same schema, combine them into a single logical table
@@ -138,7 +138,6 @@ Differences
 
 ### Shape and transform data 
 
-
 - Profile the date
 	- Distribution: HIstogram of count of distinct and unique values
 	- Quality: check empty, validity percentage and errors
@@ -146,7 +145,6 @@ Differences
 
 - Use editor to modify M code
 		- Click in Power Query - Advanced Editor 
-
 
 - Use Parameters
 	- In power query click Manage Parameters in the Home Ribbon
@@ -182,6 +180,18 @@ TODO
 ## Model the Data (25-30%)
 
 ### Design a data model
+
+[Azure learning](https://docs.microsoft.com/en-gb/learn/modules/design-model-power-bi)
+
+- The best practice for a data model in Power BI is a Star Schema
+- The reason is that a Star Schema optimise performance and make dax code simpler to filter on dimension
+- The granularity of the model need be at the level it is required as it can increase cardinality and reduce performance
+- A data model need to as much as possible denormalize tom reduce the number of tables and follow a Start Schema and avoid snow flake patterns
+- Power BI allows relationships to be built from tables with different data sources, a powerful function that enables you to pull one table from Microsoft Excel and another from a relational database
+
+- Star Schema
+	- Fact tables contain observational or event data values
+	- Dimension tables contain the details about the data in fact tables
 
 ```python 
 TODO
