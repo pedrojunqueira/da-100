@@ -193,18 +193,120 @@ TODO
 	- Fact tables contain observational or event data values
 	- Dimension tables contain the details about the data in fact tables
 
+- Model Relationships
+	- Can be created using the Model View by dragging and dropping
+	- On the the Ribbon Home > Relationships > Manage Relationships
+
+- Configure table Property Pane
+	- In model view you can configure columns using the Property Pane
+	- The following fields
+		- Description
+		- Synonyms (useful for Q&A search)
+		- Display Folder. To organize column in folder groups
+		- Hide/Show toggle
+		- Format Data type
+		- Advanced
+			- Sort column
+			- Assign to category
+			- Summarize data
+			- If contain nullable values
+	- To configure multiple columns simultaneously hold control key and select various columns
+
+- Create a Common date table there are the methods
+	- Source (e.g. EDW)
+	- DAX
+		- `CALENDAR()` OR `CALENDARAUTO()` Functions
+		- From a base Date columns can create other calculated columns using DAX functions
+			- `Year = YEAR(Dates[Date])`
+			- `MonthNum = MONTH(Dates[Date])`
+			- `WeekNum = WEEKNUM(Dates[Date])`
+			- `DayoftheWeek = FORMAT(Dates[Date].[Day], "DDDD")`
+			- DAX [date and time functions](https://docs.microsoft.com/en-us/dax/date-and-time-functions-dax) 
+	- Power Query
+		- You can use M-language, the development language that is used to build queries in Power Query
+		- ``` DAX
+			= List.Dates(#date(2011,05,31) // start date
+			, 365*10 // every day for 10 years
+			, #duration(1,0,0,0) // duration of period (Day, Hour, Minute, Second)
+			```
+		- to add columns to your new table to see dates in terms of year, month, week, and day so that you can build a hierarchy in your visual.
+		- Add column and then on the drop down under date select what column you want e.g. year
+	- Once the date table is added to PBI you need to mark the table as date table
+	- Specify which column is the date column
+	- Power BI will validate if the table is valid checking if there is no gaps and if the dates are valid
+
+- Creating Hierarchy
+	- 2 ways
+		- right click column and create hierarchy then drag and drop
+		- in model view in the property pane click on fields to add to hierarchy
+	- Once created hierarchy can add to visual axis and drill down on visuals
+
+- Parent Child Hierarchy
+	- Used for chart of accounts or organizational staff hierarchy
+	- Power BI has a function to flatten parent child hierarchy
+		- `Path = PATH(Employee[Employee ID], Employee[Manager ID])`
+		- The calculated columns above find the path from employee to manager`
+		- The flatten path is divided with a pipe operator `|`
+		- From the flatten it can be split in levels using the function `PATHITEM()`
+
+- Role-playing dimensions
+	-  Meaning that the same dimension can be used to filter multiple columns or tables of data
+	- You can filter data differently depending on what information you need to retrieve
+	- This happens when when a a dimension table makes reference to more than one fact table
+		- Example a date dimension has relationship to 2 fact tables (e.g. Orders and Sales)
+
+- Define data granularity
+	- Data granularity needs to be at the level you are going to report on
+	- For example if you collect data every minute from a IOT device and want to do an average daily temperature you only import the aggregated data to the report to save space and improve performance
+	- If Budget and Sales (actual) has different granularity
+		- May need to transform budget table to add column to link table to aggregate on same granularity
+
+- Relationships and cardinality
+	- Power BI has the concept of directionality to a relationship
+	- This direction indicates how the filter propagates between tables
+	- The rule is that if propagates from the one to the many side of the relationship
+	- Cardinalities can be
+		- One-to-many or Many-to-One (same)
+		- One-to-One: Unique value in both tables. Indicates that there are space to denormalize the model and a redundant relationship exists
+		- Many-to-Many: There are many value in both tables. Although possible it is not recommended as it can generate ambiguity.
+
+- Cross-filter direction
+	- The direction of a relationship cross-filter can be 
+		- single or 
+			- Only one side filter the other table. In a one-to-Many the one side inly filters
+		- both direction
+			- Both sides can filter the other table
+			- You might have lower performance when using bi-directional cross-filtering with many-to-many relationships.
+			- A word of caution regarding bi-directional cross-filtering.
+			- Enabling it can lead to ambiguity, over-sampling, unexpected results, and potential performance degradation.
+	
+- Cardinality and cross-filter direction
+	- one-to-one: Only Bidirectional
+	- many-to-many: Single or Bidirectional
+		The ambiguity that is associated with bi-directional cross-filtering is amplified in a many-to-many
+	- one-to-many: Single or Bidirectional
+
+- Resolve many-to-many relationships
+	- Before relationships with a many-many cardinality became available, the relationship between two tables was defined in Power BI. 
+	- A bridging table needed to be created as a work around (Before the July 2018 release)
+	- With the July 2018 version of Power BI Desktop, you can directly relate tables, such as the ones we described earlier, without having to resort to similar workarounds. 
+	- [Documentation reference](https://docs.microsoft.com/en-us/power-bi/transform-model/desktop-many-to-many-relationships)
+
+
+- Create quick measures
+	- There are 3 ways
+		- Fields pane, right-click a table or a field and "new quick measure"
+		- Home Ribbon button in "calculations"
+		- Model Ribbon button in "calculations"
+	- In the Quick Measures window, in the Calculation dropdown list chose the calculation
+	- Depending on what you calculation pick it will ask for values to pick (columns)
+		- Drag and drop columns
+		- Click ok and the measure will be created and write the DAX for you
+	- This is a good way to learn DAX (maybe not... :) )
+
 ```python 
 TODO
- define the tables
- configure table and column properties
- define quick measures
- flatten out a parent-child hierarchy
- define role-playing dimensions
- define a relationship's cardinality and cross-filter direction
  design the data model to meet performance requirements
- resolve many-to-many relationships
- create a common date table
- define the appropriate level of data granularity
 ```
 
 ### Develop a data model
@@ -213,7 +315,6 @@ TODO
 TODO
  apply cross-filter direction and security filtering
  create calculated tables
- create hierarchies
  create calculated columns
  implement row-level security roles
  set up the Q&A feature
