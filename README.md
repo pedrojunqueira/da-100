@@ -369,6 +369,7 @@ TODO
 		- Columns: Do not import unnecessary columns
 		- Unnecessary rows: remove empty rows
 		- Data Type: Date and Time columns is costly. Consider splitting them or remove time if do not need it
+			Vertipaq optimize numeric types over text (Numeric versus hash encoding).
 		- Auto Date/Time. Disable to improve performance as it reduces de size of the data model
 
 - Use variables instead of numeric calculated columns
@@ -411,12 +412,75 @@ TODO
 
 [Azure Learning - Reduce import in modelling](https://docs.microsoft.com/en-us/power-bi/guidance/import-modeling-data-reduction#group-by-and-summarize/?azure-portal=true)
 
-```python 
-TODO
- improve cardinality levels by changing data types
- improve cardinality levels through summarization
- create and manage aggregations
-```
+- Import mode
+	- Import mode store the source data to disk by VertiPaq engine
+	- The compression is 10x. e.g. 10Gb to 1Gb
+	- Despite the high compression of the engine you should strive to reduce data imported to PBI
+		for performance
+	- Shared Capacity can host model up to 1Gb and Premium up to 13Gb
+
+- Data reduction techniques
+	- Remove columns
+	- Remove rows
+	- Group and Summarize
+	- Optimize Column Data Type
+	- Preference for Custom Columns
+		- It is less efficient to add table columns as calculated columns than Power Query computed columns (defined in M).
+	- Disable Power Query Load
+	- Disable Date Time (Auto)
+	- Switch to mixed Model
+
+- Group by and summarize
+	- The most effective technique to reduce a model size is to load pre-summarized data
+	- For example from daily to moth aggregation of sales data
+
+- Switch to Mixed mode
+	- In Power BI Desktop, a Mixed mode design produces a Composite model
+	- it allows you to determine storage mode for each table
+		- Recommendation
+		- Large Fact Table to Direct Query
+		- Summarized Data: Import Mode
+
+- Implications of using DirectQuery
+	- It is suitable in cases where data changes frequently and near real-time reporting is required.
+	- It can handle large data without the need to pre-aggregate.
+	- It applies data sovereignty restrictions to comply with legal requirements.
+	- It can be used with a multidimensional data source that contains measures such as SAP Business Warehouse (BW).
+
+- Behavior of DirectQuery Connections
+	- No data is imported into the Power BI Desktop, only the schema is loaded. 
+	- When visual is built query is sent to source
+	- Query made in source will not automatically affect. Refresh will be required.
+	
+- Limitations Direct Query
+	- Performance: Depend on performance of underlying source
+	- Security: Be aware that if multiple sources are imported understand how data can move between data sources and the associated security implications
+	- Data Transformation: Within Power Query if you connect to a OLAP source no transformation can be performed so any transformation need to be do in the source.
+	- Modelling: Some modelling capability are not available
+	- Reporting: All reporting capability is offered but when published in the PBI service the quick insight feature are not supported for DirectQuery sources.
+
+- Create managed aggregations
+	- Why?
+		- Aggregated data is cached and, therefore, uses a fraction of the resources that are required for detailed data.
+		- Instead of refreshing what could be millions of rows, you would refresh a smaller amount of data instead.
+		- help you reduce and maintain the size of your model.
+		- anticipate your data model growing in size in the future and acting proactively
+	- Creating aggregations
+		- Decide the grain or what level will aggregate: Month, Category etc`
+		- Where you can create aggregation
+			- Source if you have access
+			- Power Query after import : Use the Group By tool
+	- Managing the aggregation
+		- Once you created the aggregated table 
+		- Open by right clicking any field and then "Manage Aggregation" in the detailed table
+		- Reference the column and aggregation
+		- [Azure Docs](https://docs.microsoft.com/en-us/power-bi/transform-model/desktop-aggregations)
+		- aggregation tables are hidden from Report view.
+		- All Power BI Import and non-multidimensional DirectQuery data sources can work with aggregations.
+		- Set the storage mode of an aggregated table to Import to speed up queries
+		- To work correctly for aggregations, RLS expressions should filter both the aggregation table and the detail table. (RLS- Role Level Security)
+		- Once the aggregation is set up the detailed table performance will improve and load faster as it will
+			use the aggregation from the aggregation
 
 ## Visualize the Data (20-25%)
 
