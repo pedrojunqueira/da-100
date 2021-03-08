@@ -311,14 +311,57 @@ TODO
 
 ### Develop a data model
 
-```python 
-TODO
- apply cross-filter direction and security filtering
- create calculated tables
- create calculated columns
- implement row-level security roles
- set up the Q&A feature 
-```
+[Azure Learning](https://docs.microsoft.com/en-gb/learn/modules/model-data-power-bi/)
+
+- Apply cross-filter direction and security filtering
+	- The default filter is form the one side to the many side
+	- Bidirectional cross-filtering enables them to apply filters on both sides of a table relationship
+	- To enable bi-directional filtering
+		- Set Cross filter direction to Both
+		- Select Apply security filter in both directions
+			- The selection of security filter is to make sure that RLS apply in both directions
+			- This property only works for certain models and is designed when there is a pattern with dynamic row level security. 
+	- [Bidirection and Security Filtering](https://docs.microsoft.com/en-us/power-bi/transform-model/desktop-bidirectional-filtering)
+	- [White Paper](https://download.microsoft.com/download/2/7/8/2782DF95-3E0D-40CD-BFC8-749A2882E109/Bidirectional%20cross-filtering%20in%20Analysis%20Services%202016%20and%20Power%20BI.docx)
+	
+
+- Create Calculated Tables
+	- Can create in Power Query
+	- Can create in Power BI using DAX
+
+- create calculated columns
+	- Can create in Power Query (Preferred as it is optimized for compression and performance)
+	- Can create in Power BI using DAX
+
+- Set up the Q&A feature
+	- [Azure Learning](https://docs.microsoft.com/en-us/power-bi/consumer/end-user-q-and-a)
+	- Use Q&A is a natural language capabilities of PBI that allow you to receive answers in the form of charts and graphs from asking questions
+	- Q&A can be used in
+		- Dashboards in PBI Service
+		- Power BI Mobile at the bottom of Dashboards
+		- In Dashboards you are able to use Q&A but will not be able to save the charts
+		- In Reports if add Q&A visual
+	- On Dashboards
+		- You can type in the search box to get answers
+		- You can click in one of the suggested questions PBI detect automatically
+	- On Reports
+		- On a Q&A visual you can also ask questions and get charts in return
+		- If you like the chart you can make a regular chart
+	- Troubleshooting and settings
+		- Go on the model view and click Q&A setup
+		- Go to review sections
+			- If you published in PBI Service all questions asked will be there
+			- All red underlines will be terms that PBI does not understand
+			- To fix the term click in fix needed and then teach PBI what the term means in the model
+
+
+- Implementing Row Lever Security
+	- [Azure Learning](https://docs.microsoft.com/en-gb/learn/modules/row-level-security-power-bi/)
+	- Statics Method
+		- Control access based on filter applied to table rows using DAX
+	- Dynamic Method
+		- Control access based on the email of the used logged in
+
 
 ### Create measures by using DAX
 
