@@ -317,7 +317,7 @@ TODO
  create calculated tables
  create calculated columns
  implement row-level security roles
- set up the Q&A feature
+ set up the Q&A feature 
 ```
 
 ### Create measures by using DAX
@@ -334,10 +334,85 @@ TODO
 
 ### Optimize model performance
 
+[Azure Learning](https://docs.microsoft.com/en-gb/learn/modules/optimize-model-power-bi/1-introduction)
+
+- Performance optimization
+	- It involves making changing in the data and model to run more efficiently
+	- As a data analyst, you will spend approximately 90 percent of your time working with your data
+	- Poor performance is related to a bad data model or bad dax code
+		- Ensuring that the correct data types are used
+		- Deleting unnecessary columns and rows
+		- Avoiding repeated values
+		- Replacing numeric columns with measures
+		- Reducing cardinalities
+		- Analyzing model metadata
+		- Summarizing data where possible
+
+- Analyse performance to find bottlenecks
+	- You can use Performance analyzer in Power BI Desktop to help you find out how each element is performing
+	- Identify how long each visual is taking to load
+	- Before doing tests clear the cache
+		- Either reopen PBI desktop
+		- Connect to Dax studio and clear cache
+	- Start recording and reload visuals
+	- The result is broken down in
+		- Dax Query: How long it took to run the query. Send to source model and return results
+		- Visual display: How long took to load the visual
+		- Other: Time took for other background processing, wait other visuals and etc.
+	- Visuals
+		- Consider the number of visuals on the report page; less visuals means better performance
+		- Consider the number of fields in each visual
+	- DAX QUery
+		- There are more efficient way to right dax to improve performance
+	- Data Model
+		- Relationships can be costly. For example snow flake reduce performance
+		- Columns: Do not import unnecessary columns
+		- Unnecessary rows: remove empty rows
+		- Data Type: Date and Time columns is costly. Consider splitting them or remove time if do not need it
+		- Auto Date/Time. Disable to improve performance as it reduces de size of the data model
+
+- Use variables instead of numeric calculated columns
+	- Reduce size of model
+
+- Use variables in measure 	
+	- Variables can make measures more efficient because they remove the need for Power BI to evaluate the same expression multiple times
+	- Improve readability
+	- Easier to debug
+	- Reduce complexity
+
+	#### not using variables
+	```M
+	Sales YoY Growth =
+	DIVIDE (
+    ( [Sales] - CALCULATE ( [Sales], PARALLELPERIOD ( 'Date'[Date], -12, MONTH ) ) ),
+    CALCULATE ( [Sales], PARALLELPERIOD ( 'Date'[Date], -12, MONTH ) )
+	)
+	```
+	#### using variables
+
+	```M
+	Sales YoY Growth =
+	VAR SalesPriorYear =
+    CALCULATE ( [Sales], PARALLELPERIOD ( 'Date'[Date], -12, MONTH ) )
+	VAR SalesVariance =
+    DIVIDE ( ( [Sales] - SalesPriorYear ), SalesPriorYear )
+	RETURN
+    SalesVariance
+	```
+- Reduce cardinality
+	- Cardinality is a term that is used to describe the uniqueness of the values in a column.
+	- Use data profiler in Power Query to analyse column distribution and unique values
+	- Lots of repeated values indicated low cardinality. A GOOD THING.
+
+- Improve performance by reducing cardinality levels
+	- Power BI Desktop offers different techniques that you can use to help reduce the data that is loaded into data models, such as summarization.
+	- Reducing the data that is loaded into your model will improve the relationship cardinality of the report.
+	- The most effective technique to reduce a model size is to use a summary table from the data source.
+
+[Azure Learning - Reduce import in modelling](https://docs.microsoft.com/en-us/power-bi/guidance/import-modeling-data-reduction#group-by-and-summarize/?azure-portal=true)
+
 ```python 
 TODO
- remove unnecessary rows and columns
- identify poorly performing measures, relationships, and visuals
  improve cardinality levels by changing data types
  improve cardinality levels through summarization
  create and manage aggregations
