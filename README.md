@@ -359,8 +359,22 @@ TODO
 	- [Azure Learning](https://docs.microsoft.com/en-gb/learn/modules/row-level-security-power-bi/)
 	- Statics Method
 		- Control access based on filter applied to table rows using DAX
+		- Uses a fixed value in the DAX filter
+		- Steps - PBI Desktop
+			- Create RLS Role(s)
+			- Test Role(s)
+			- Deploy PBI Service
+		- Steps - PBI Service
+			- In Dataset (elipsis ...) select Security
+			- Add Members to the role
+			- Test the roles
 	- Dynamic Method
 		- Control access based on the email of the used logged in
+		- Uses a DAX function
+		- Steps in PBI Desktop and Service 
+			- Same Steps as above
+		- When creating the role use the function userprincipalname() which will compare the 
+			email of person signed in and the email filter in the report
 
 
 ### Create measures by using DAX
@@ -531,6 +545,66 @@ TODO
 
 [Azure Docs](https://docs.microsoft.com/en-gb/learn/modules/visuals-power-bi/)
 
+- Add visualization items to reports
+	- Power BI come with a range out of the box visuals that can be selected form the visualisation pane
+		- To add more visuals click on the elipses and can chose from Marketplace or Upload a file
+	- Table and Matrix
+		- Are grid like visualisations
+		- Table is simpler and sumarize measures in values (measure) by a chosen dimension (column)
+		- Matrix allow to "slice" in rows and columns. Similar to a pivot table
+		- Matrix can cross highlight other charts. Any chart can.
+		- Matrix options: Row, Column and Value
+		- Table option: Value
+	- Bar and Column 
+		- Can be clustered or stacked
+		- Represent groups and classes
+		- Axis, Legend, Values and tooltip are options
+	- Line and Area chart
+		- Present Trend over time
+		- Options
+			- Axis, Value, Legend, Secondary axis and tooltips
+	- Pie charts, donut charts, and treemaps
+		- Show relationship of the part in a whole
+		- Avoid presenting too many categories because it results in thin slices (or rectangles) that provide no added value to the user
+		- Options
+			- Legend, Details, Value and Tooltip
+	- Combo charts
+		- Combination of Bar and Line charts sharing same X axis
+		- Compare multiple measures with different value ranges
+		- Illustrate the correlation between two measures in one visual
+		- Conserve space on your report page
+		- Options
+			- Shared axis, column values, line values and tooltips
+	- Card visualization
+		- Display a single value data point
+	- Funnel visualization
+		- Represent sequential stages representing workflow
+		- Options
+			- Group, value and tooltips
+	- Gauge chart
+		- Displays a single value that measures progress toward a goal or target
+		- Options
+			- Min, Max, Target, Value and tooltip
+	- Waterfall 
+		- Useful in displaying a series of positive and negative changes.
+		- Aka bridge chart
+		- Options
+			- Category, Breakdown, Value and tooltips
+	- Scatter Chart
+		- Effective when you are comparing large numbers of data points without regard to time.
+		- Analyse correlation
+		- Options
+			- Detail, legend, X axis, Y axis, size, play axis and tooltips
+	- Maps
+		- Have options of Bubble Maps (simpler) and filled maps (e.g.fill countries, states)
+	- Slicer visualization
+		- The slicer visualization is a standalone chart that can be used to filter the other visuals on the page.
+	- Q&A visualization
+	- 
+
+
+	
+
 ```python 
 TODO
  add visualization items to reports
@@ -563,7 +637,7 @@ TODO
 [Azure Docs](https://docs.microsoft.com/en-gb/learn/modules/create-dashboards-power-bi/)
 
 - Dashboards can pin visuals from various reports and dashboards
-- Dashboards can contain visuals from different datasrts
+- Dashboards can contain visuals from different datasets
 - Dashboards are only available in the Power BI service
 - Dashboards do not have filters like reports do
 - Dashboards can only be a single page
@@ -579,13 +653,13 @@ TODO
 	- Cards
 	- Gauge
 - Alerts can be sent to the notification center or email.
-- More infor about alerts (https://docs.microsoft.com/en-us/power-bi/create-reports/service-set-data-alerts)
+- More info about alerts (https://docs.microsoft.com/en-us/power-bi/create-reports/service-set-data-alerts)
 
 - Alerts can be set on visuals created from streaming datasets that you pin from a report to a dashboard.
 - Alerts can't be set on streaming tiles created directly on the dashboard using Add tile > Custom streaming data.
 
--Dashboard has Q&A feature where you can ask questions
--Q&A uses natural languag processing
+- Dashboard has Q&A feature where you can ask questions
+- Q&A uses natural language processing
 
 - It is possible to pin an entire report page to a dashboard 
 
