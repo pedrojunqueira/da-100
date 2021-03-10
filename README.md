@@ -597,24 +597,90 @@ TODO
 			- Detail, legend, X axis, Y axis, size, play axis and tooltips
 	- Maps
 		- Have options of Bubble Maps (simpler) and filled maps (e.g.fill countries, states)
+		- Options for data (Fill)
+			- Location, legend, Lat, Lon and tool tips
+		- Options for data (bubble)
+			- Location, legend, Lat, Lon, SIZE and tool tips
 	- Slicer visualization
 		- The slicer visualization is a standalone chart that can be used to filter the other visuals on the page.
+		- Slicer list have the options	
+			- Single select: 
+			- Multi-select: Use control to select more than on
+			- Show "Select all"
 	- Q&A visualization
-	- 
+		- The Q&A visualization allows you to ask natural language questions and get answers in the form of a visual
+		- Insert question in the box or use the pre defined selections
+		- Click in turn result into standard visual 
 
+- Format and configure visualizations
+	- Select the Format button (paint roller icon) to display the Format pane
+	- You can format the title by changing the text, text size, font, color, background, and alignment. The subsequent section shows an example of customizing a title.
+	- The format will allow to customize and configure your visual
+	- Not all options you will have to all chart type but the main things to configure are
+		- Background
+		- Legend
+		- Title
+		- Axis
+		- Data Color
+		- Border
+		- Shadow
+		- Plot area
 
-	
+- Customize Tooltip Visuals
+	- Using tooltips is a clever way of providing more contextual information and detail to data points on a visual
+	- Beyond just providing the extra information of tooltip when you hove over a chart it is possible to create a chart tool tip that will pop up when you hove over a chart
+	- Steps
+		- Open new page
+		- In the format pane select Page Size type "tooltip"
+		- In page information (format pane) switch the toggle tooltip to ON
+		- On the View tab, set the Page view option to Actual size
+		- Add the visual you want to be displayed in the tooltip
+		- Return to the report page and apply the tooltip
+		- Select a visual you want the tooltip
+		- In the Format pane, scroll down to the Tooltip section. Turn the tooltip option On and then select your tooltip page from the Page list.
 
-```python 
-TODO
- add visualization items to reports
- choose an appropriate visualization type
- format and configure visualizations
- import a custom visual
- apply slicing and filtering
- add an R or Python visual
- configure the report page
-```
+- Import a custom visual
+	- In addition to the out-of-the-box visualizations in Power BI Desktop, hundreds of other developers have created a multitude of visuals for you to choose from.
+	-  Are created by Microsoft and Microsoft partners
+	- Some of these custom visuals are certified and some are not
+	- The certified status means that the visual meets the Microsoft Power BI team code requirements
+	- An uncertified visual is not necessarily unsafe to use
+	- The custom visual software development kit (SDK), which is an open-source tool based on NodeJS (JavaScript programming language)
+	- To get a custom visual click in the ellipses (...) "Get more visuals"
+
+- Add an R or Python visual
+	- R
+		- Before you create the R visual, you must install R
+		- When you have downloaded and installed R, Power BI enables it automatically
+		- Despite automatic you should verify that it has been enabled in the correct location
+			- In Power BI Desktop, select File > Options and settings > Options and then select R scripting in the Global options list.
+			- Verify if the path you your system where R installed is correct
+		- To create a visual
+			- Click in the R chart icon
+			- Drag the fields to values 
+			- This will behave like a table visual
+				- Fields are grouped and duplicate rows appear only once.
+				- The default aggregation is: do not summarize.
+			- then will automatically create a (Data Frame) in the script editor
+			- You will use data frame to render the chart using R
+  
+	- Python
+		- No prerequisites exist for creating a Python visual, so you can start right away in Power BI Desktop by selecting the Python visual icon in the Visualizations pane
+		- To create a visual the process is the same as describe above for R
+
+	- Python and R visuals do not interact and are not dynamic and the out of the box chart in PBI
+	- Python packages supported in PBI [service](https://docs.microsoft.com/en-us/power-bi/connect-data/service-python-packages-support)
+		- matplotlib
+		- numpy
+		- pandas
+		- skit-learn
+		- scipy
+		- seaborn
+		- statsmodel
+		- xgbost
+
+- Configure the report page
+	- The configuration of a report page is the process of adding visuals and power BI features to meet requirements
 
 - Accessibility Configuration				
 	- Alt text: To accommodate report consumers who use screen readers
@@ -623,7 +689,6 @@ TODO
 	- Titles and labels:  provide clear, concise, descriptive titles
 	- Markers : Avoid. Can bring distraction
 	- Themes : Use colors with contrast
-
 
 ```python 
 TODO
@@ -665,7 +730,7 @@ TODO
 
 [Azure Docs](https://docs.microsoft.com/en-us/power-bi/create-reports/service-dashboard-pin-live-tile-from-report)
 
-- You can stream data to power bi connectiong from
+- You can stream data to power bi connections from
 [Azure Docs](https://docs.microsoft.com/en-us/power-bi/connect-data/service-real-time-streaming)
 	- API
 	- Azure Stream Analytics
@@ -676,10 +741,10 @@ There are 3 types of streaming dataset
 - Streaming
 - PubNub
 
-- Can set up a theme by clickinh in edit. 
+- Can set up a theme by clicking in edit. 
 - Can also upload or download a Json Theme to be applied to the dashboard
 
-- Classification of dashboards on `...` (elipsis) settings options 
+- Classification of dashboards on `...` (ellipsis) settings options 
 [Azure Docs](https://docs.microsoft.com/en-us/power-bi/create-reports/service-data-classification)
 	- DO NOT SHARE, 
 	- ASK FOR PERMISSION
@@ -698,12 +763,12 @@ There are 3 types of streaming dataset
 		- Draw a sketch of your report layout
 		- Focus on the most important information
 		- Select the right background for the context of your report.
-		- Consider the number of visuals and clutering
+		- Consider the number of visuals and cluttering
 			 - Can use drill through or tooltips
-		- Enven distribute and aligh titles and visuals. Position is important
+		- Even distribute and align titles and visuals. Position is important
 		- Configure iterations if want to cross highlight or filter or no interactions in some cases (depend on user preference)
-		- Consider hierachy on visuals for beter data navigatino and drill down experience
-		- Consider accessbility like tab order and color for color blindness
+		- Consider hierarchy on visuals for better data navigation and drill down experience
+		- Consider accessability like tab order and color for color blindness
 			- PBI is compliant to  Web Content Accessibility Guidelines (WCAG)
 				- Perceivable
 				- Operable
@@ -719,20 +784,20 @@ There are 3 types of streaming dataset
 	- Bookmarks: Capture the currently configured view of a report page so you can quickly return to that view later.
 	- Buttons: Create a more interactive experience for the report users.
 		- Button actions options:
-			- Back : Take back previous page. Used well with drill trhough
+			- Back : Take back previous page. Used well with drill through
 			- Bookmark: apply a bookmark
-			- Drill through: take to a drill trhough of the current filter
+			- Drill through: take to a drill through of the current filter
 			- Page navigation : Navigate to a specific page
 			- Q&A : Open a search window
 			- Web URL: Take to a URL
 	- Selections: Allow you to determine what items in the report are visible and what items are hidden.
 	
 - Use basic interactions
-	- On Format click on Edit Iteraction
+	- On Format click on Edit Iteration
 		- There are 3 options
-			- None: when iteracting nothing will happen. Visual stay the same
-			- cross-filtered: Visual will filter what of selected in the other visual when iteracting
-			- cross-highlight: Visual will stay the same and highligh what was filtered proportionaly
+			- None: when iterating nothing will happen. Visual stay the same
+			- cross-filtered: Visual will filter what of selected in the other visual when iterating
+			- cross-highlight: Visual will stay the same and highlight what was filtered proportionals
 	- hierarchies
 		- When add hierarchy in a visual you will have the ability to drill down
 
@@ -741,11 +806,6 @@ Keep in mind that the number of interactions between your visuals will impact th
 of your report. To optimize the performance of your report,
 consider the query reduction options that are available within Power BI Desktop. 
 You have the option to send fewer queries . This is configured in options > query reduction
-	
-```python 
-TODO
- create custom tooltips
-```
 
 ## Analyze the Data (10-15%)
 
@@ -763,27 +823,27 @@ TODO
 
 - Bookmarks is used to save states of the data you want to come back. Can be a filter or unfilter data
 
-- Power Bi visuals allow you to (click elipsis)
+- Power Bi visuals allow you to (click ellipsis)
 	- add a commend
 	- export data (table or underlying data: depends on sys adm permissions and settings)
-	- Visual table (visualize table of charch data)
+	- Visual table (visualize table of the chart data)
 	- Spotlight (show just selected chart and hiding all other elements
 	- Sort (Sort by date or category depending on what is selected on axis)
 
 - Drill through
-	- Create a new report page (tab) and add a drill trhough filter
+	- Create a new report page (tab) and add a drill through filter
 	- Automatically all visuals with the drill through filter will then take the filter and pass to drill through page (detail)
-	- To access drill trhough right click the visuals
+	- To access drill through right click the visuals
 	
 - Conditional formatting
-	- Conditional formatting apply to fields and measureas
+	- Conditional formatting apply to fields and measures
 	- Click on down arrow in the visual value and select option to condition format
 	
 - Apply slicing, filtering, and sorting
 	- Filter only work in reports NOT Dashboard`
 	- Slicers are added in report so end users can filter the report
 	- Putting slicer next to visuals make user experience better to filter visuals
-	- Slicer does not support input fields or drillthrough features
+	- Slicer does not support input fields or drill through features
 	- Slicer list have the options	
 		- Single select: 
 		- Multi-select: Use control to select more than on
@@ -807,12 +867,12 @@ TODO
 - Tune report performance
 	- In the power Bi ribbon on Report View > View click on "Performance Analyser"
 	- Click record and then as you interact with the report and PBI fire queries it will display how long eac query took
-	- Results display in miliseconds
+	- Results display in milliseconds
 	- Reasons for bad performance
 		- too many visuals
 		- High cardinality
 		- High Granularity
-	- Make sure if glanularity and only necessary data is loaded so this can imporove performance
+	- Make sure if granularity and only necessary data is loaded so this can improve performance
 	
 - Optimize for mobile use
 	- Any report is already possible to access via mobile
@@ -870,13 +930,13 @@ TODO
 	- Add this to a measure and then do what if analysis with it
 	
 	
-- Configure On-Premissies Gateway - https://docs.microsoft.com/en-us/data-integration/gateway/service-gateway-app
+- Configure On-Premisses Gateway - https://docs.microsoft.com/en-us/data-integration/gateway/service-gateway-app
 	- The on premisses gateway can be in two modes
 		- Personal : Installed in the local machine and used by only 1 user
-		- Organisational: Installed in the same server where the data source is and can be used to multiple users in the organisation
-	- The gateway is a mean of conecting the power bi service (cloud) to on premisses sources
+		- Organizational: Installed in the same server where the data source is and can be used to multiple users in the organization
+	- The gateway is a mean of confecting the power bi service (cloud) to on premisses sources
 	- It allow save traffic of credentials over the internet
-	- It allows for schedulled refresh of the power bi service to get data from on premisses sources
+	- It allows for scheduled refresh of the power bi service to get data from on premisses sources
 	
 	
 - Configure Schedule refresh
@@ -907,9 +967,9 @@ TODO
 		
 - Troubleshoot service connectivity - https://docs.microsoft.com/en-us/power-bi/connect-data/refresh-troubleshooting-refresh-scenarios
 	- Cloud sources (Azure) does not require gateways
-	- Aways make sure credentials are upto date. User service accoutns where password does not expire
+	- Always make sure credentials are up to date. User service accounts where password does not expire
 
-- Query caching (Prmium Feature) - https://docs.microsoft.com/en-us/power-bi/connect-data/power-bi-query-caching
+- Query caching (Premium Feature) - https://docs.microsoft.com/en-us/power-bi/connect-data/power-bi-query-caching
 	- With the Query Caching feature, you can use the local caching services of Power BI to process
 			query results. Instead of relying on the dataset to calculate queries
 	- Query Caching is a local caching feature that maintains results on a user and report basis. 
