@@ -86,12 +86,12 @@ Differences
 				without having to import them all into Power BI. Azure Analysis Services can have a fast refresh schedule , 
 				which means that when data is refreshed in the service, Power BI reports will immediately be updated, 
 				without the need to initiate a Power BI refresh schedule.
-- Analysis Services Multidimentional can only connect life. It does not import. [Reference Docs](https://docs.microsoft.com/en-us/power-bi/connect-data/desktop-ssas-multidimensional)
+- Analysis Services Multidimensional can only connect life. It does not import. [Reference Docs](https://docs.microsoft.com/en-us/power-bi/connect-data/desktop-ssas-multidimensional)
 
 
 - Query folding. 
-	- [Azure Docs](https://docs.microsoft.com/en-us/power-bi/guidance/power-query-folding)
-	- [Azure Docs](https://docs.microsoft.com/en-us/power-query/power-query-folding)
+	- [Query Folding Docs](https://docs.microsoft.com/en-us/power-bi/guidance/power-query-folding)
+	- [Power Query Folding Docs](https://docs.microsoft.com/en-us/power-query/power-query-folding)
 	- Query folding is the process by which the transformations and edits that you make 
 		in Power Query Editor are simultaneously tracked as native queries, 
 		or simple Select SQL statements.
@@ -163,15 +163,56 @@ TODO
 
 ### Clean, transform, and load the data
 
+[Clean data learning](https://docs.microsoft.com/en-gb/learn/modules/clean-data-power-bi/)
+
+- Power Query Editor
+	- Query pane (left)
+	- Query displays in the middle of the screen and
+	- Query setting on the right
+	- All steps that you take to shape your data are recorded
+
+- Identify column headers and names 
+	- Make sure columns are in the right place
+	- You can promote headers or delete rows to make headers are column names
+	- Promote header by clicking on the top left of the grid view and select "use first row as header"
+	- Rename Columns
+		- Look for spelling error and fix
+		- Give meaningful names for the end user. Avoid codes, shortened, underscores and acronyms 
+	- Remove top rows if empty
+	- Remove columns
+		- Help you to focus on the data that you need and help improve the overall performance of your Power BI Desktop datasets and reports
+		- Can select what you want to keep and "remove other" or select what you want to remove and keep the rest
+	- Unpivot columns 
+		- often use it when importing data from Excel
+		- It transform column headers in rows
+		- It helps to shape the data to make aggregation and measures more efficient
+	- Pivot columns 
+		- Inverse o unpivot
+		- You can aggregate flat data
+
+- Simplify the data structure
+	- Rename a query 
+		- Usually PBI give name of the query "query1" or a name from data source file or DB name
+		- Give a name that makes sense to your data model that the user is more familiar with
+	- Replace values
+		- Use the Replace Values feature in Power Query Editor to replace any value with another value in a selected column. 
+		- Can fix spelling errors in bulk
+		- Replace null values. Can replace to a numeric value to allow calculation and improve compression rate
+	- Remove duplicates
+		- right-clicking on the header of the column, and then selecting the Remove Duplicates option
+	- Best practices for naming tables, columns, and values
+		- Replace underscores ("_") with spaces
+		- Consistent with abbreviation
+		- Excessively short abbreviations can cause confusion
+		- Removing prefixes or suffixes that you might use in table names and instead naming them in a simple format
+- Evaluate and change column data types
+
+
 ```python 
 TODO
- resolve inconsistencies, unexpected or null values, and data quality issues
- apply user-friendly value replacements
  identify and create appropriate keys for joins
  evaluate and transform column data types
- apply data shape transformations to table structures
  combine queries
- apply user-friendly naming conventions to columns and queries
  leverage Advanced Editor to modify Power Query M code
  configure data loading
  resolve data import errors
