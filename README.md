@@ -205,19 +205,92 @@ TODO
 		- Consistent with abbreviation
 		- Excessively short abbreviations can cause confusion
 		- Removing prefixes or suffixes that you might use in table names and instead naming them in a simple format
+
 - Evaluate and change column data types
+	-  Power BI Desktop automatically starts scanning the first 1,000 rows (default setting) and tries to detect the type of data in the columns.
+	- Sometimes Power BI does not detect the right data type
+	- The incorrect data type will affect performance issues
+	- Higher change of getting incorrect if text files (.csv/.txt) or excel
+	- Having incorrect data type can cause measure calculation errors
+	- Inability to create hierarchy with mixed data types (non dates)
+	- Change the column data type (2  places)
+		- In Power Query Editor and in the Power BI Desktop Report view by using the column tools.
+		- Better to change data type in Power Query before you load the data 
+		- In power query you can click the icon in the column or in "any column" Data Type
 
+- Combine queries
+	- Power BI allows you to 
+		- Append or 
+		- Merge different tables or queries together
+	- You wanted to combine because
+		- Too many tables exist and you want to simplify the model
+		- Table has similar roles
+		- You want to custom a column gathering columns from diff tables
 
-```python 
-TODO
- identify and create appropriate keys for joins
- evaluate and transform column data types
- combine queries
- leverage Advanced Editor to modify Power Query M code
- configure data loading
- resolve data import errors
-```
+	- Appending 
+		- When appending you will add rows to a query or table
+		- Home tab in the ribbon is the location of the transformation
+		- You can append as new or append to any existing table (options)
+	- Merging 
+		- When merging you will be adding columns to a query or table
+		- Combining the data from multiple tables into one based on a column that is common between the tables.
+		- This process is similar to the JOIN clause in SQL
+			- Left Outer
+			- Full Outer
+			- Inner
+- Profile the data
+	- Profiling data is about studying the nuances of the data
+		- Anomalies
+		- Structure
+		- Statistics
+		- Row Count
+		- Distribution
+	- Examine data structures
+		- Before profile the data examine the model in power bi and the table relationships
+		- Find data anomalies and data statistics
+	- Select the View ribbon
+		- Column Quality: Show % of errors, empty and valid
+		- Column Profile: Detail statistics about the column
+		- Column Distribution: Histogram chart of value distribution if continuos or classes (distinct)
+	- Column quality and Column distribution are shown in the graphs above the columns of data
+	- Columns profile statistics
+		- Count
+		- Error
+		- Empty
+		- Distinct : All values in a column, including duplicates and null values
+		- Unique : Do not include duplicates or nulls
+		- Empty String
+		- Min
+		- Max
+		- Value Distribution (Bart Chart): important because it identifies outliers.
 
+- Use Advanced Editor to modify M code
+	- Each cleaning step that you made was likely created by using the graphical interface, but Power Query uses the M language behind the scenes.
+	- Power Query Advanced Editor is where all the M code was written
+	- You will rarely need to write M code, but it can still prove useful
+
+- Identify and create appropriate keys for joins
+	- This process is to make sure that when you are joining tables the field is appropriate
+	- Ideally the join should be integer values
+	- A lookup table with unique values is important (without duplicates)
+	- Good video from [Patrick - Guy in a Cube](https://www.youtube.com/watch?v=Zlu99RUtMRY)
+
+- Configure data loading
+	- You can configure for each query by right click the query
+		- Enable Load. If unchecked will not bring table to data model in PBI desktop
+		- Include in report refresh (it will not refresh in PBI desktop. In service alwyas refresh)
+
+- Resolve data import errors
+	- Import Error can be various it comes down to troubleshooting
+	- Where there is an error in import PBI will create a folder and a table query so you can analysise the errors
+	- Once you fix the error you can then delete the folder and queries with errors.
+	- Usually are related to
+		- Data types and mixed types
+		- Missing a driver to connect to a source
+		- Credentials expired
+		- Database engine missing [documentation](https://docs.microsoft.com/en-us/power-bi/connect-data/desktop-access-database-errors)
+		- You can right click column in Power Query and remove the error... this is not proper as it will remove all rows with error and will lose data. It may be a solution if it is a row that is all with error
+	
 ## Model the Data (25-30%)
 
 ### Design a data model
