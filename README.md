@@ -136,12 +136,46 @@ Differences
 		- Can use left, inner and full outer
 	- Appending: Need to have same number of columns and types
 
-### Shape and transform data 
+```python 
+TODO
+ Microsoft Dataverse
+ use or create a PBIDS file
+ use or create a data flow
+ connect to a dataset using the XMLA endpoint
+```
 
-- Profile the date
+
+### Profile the data 
+
 	- Distribution: HIstogram of count of distinct and unique values
 	- Quality: check empty, validity percentage and errors
 	- Profile: Column in depth statistics
+
+	- Profiling data is about studying the nuances of the data
+		- Anomalies
+		- Structure
+		- Statistics
+		- Row Count
+		- Distribution
+	- Examine data structures
+		- Before profile the data examine the model in power bi and the table relationships
+		- Find data anomalies and data statistics
+	- Select the View ribbon
+		- Column Quality: Show % of errors, empty and valid
+		- Column Profile: Detail statistics about the column
+		- Column Distribution: Histogram chart of value distribution if continuos or classes (distinct)
+	- Column quality and Column distribution are shown in the graphs above the columns of data
+	- Columns profile statistics
+		- Count
+		- Error
+		- Empty
+		- Distinct : All values in a column, including duplicates and null values
+		- Unique : Do not include duplicates or nulls
+		- Empty String
+		- Min
+		- Max
+		- Value Distribution (Bart Chart): important because it identifies outliers.
+
 
 - Use editor to modify M code
 		- Click in Power Query - Advanced Editor 
@@ -153,13 +187,6 @@ Differences
 		- Write a SQL query with a parameter &parameter
 		- Needs to be type text and configured in the M code outside the query string: https://docs.microsoft.com/en-gb/learn/modules/manage-datasets-power-bi/2-report-parameters
 
-```python 
-TODO
- Microsoft Dataverse
- use or create a PBIDS file
- use or create a data flow
- connect to a dataset using the XMLA endpoint
-```
 
 ### Clean, transform, and load the data
 
@@ -238,31 +265,7 @@ TODO
 			- Left Outer
 			- Full Outer
 			- Inner
-- Profile the data
-	- Profiling data is about studying the nuances of the data
-		- Anomalies
-		- Structure
-		- Statistics
-		- Row Count
-		- Distribution
-	- Examine data structures
-		- Before profile the data examine the model in power bi and the table relationships
-		- Find data anomalies and data statistics
-	- Select the View ribbon
-		- Column Quality: Show % of errors, empty and valid
-		- Column Profile: Detail statistics about the column
-		- Column Distribution: Histogram chart of value distribution if continuos or classes (distinct)
-	- Column quality and Column distribution are shown in the graphs above the columns of data
-	- Columns profile statistics
-		- Count
-		- Error
-		- Empty
-		- Distinct : All values in a column, including duplicates and null values
-		- Unique : Do not include duplicates or nulls
-		- Empty String
-		- Min
-		- Max
-		- Value Distribution (Bart Chart): important because it identifies outliers.
+
 
 - Use Advanced Editor to modify M code
 	- Each cleaning step that you made was likely created by using the graphical interface, but Power Query uses the M language behind the scenes.
@@ -290,6 +293,14 @@ TODO
 		- Credentials expired
 		- Database engine missing [documentation](https://docs.microsoft.com/en-us/power-bi/connect-data/desktop-access-database-errors)
 		- You can right click column in Power Query and remove the error... this is not proper as it will remove all rows with error and will lose data. It may be a solution if it is a row that is all with error
+
+- Splitting queries into parts
+	- If you want to split the query parts then in Query Setting right click in any step and select "Extract previous", then:
+		- A new query is created with the current step and the following and the previous steps will be referenced to the original query.
+
+- Languages that can be used in PBI. [source](https://community.powerbi.com/t5/Community-Blog/The-Languages-of-Power-BI/ba-p/69104#:~:text=Python%20can%20also%20be%20used,More%20%7C%20Other%20%7C%20Python%20Script.)
+	- Power BI integrates a number of different data languages including DAX, "M", SQL, MDX and R. 
+	- Depending on what you want to do and where one of those languages can be use in PBI
 	
 ## Model the Data (25-30%)
 
@@ -446,6 +457,9 @@ TODO
 - create calculated columns
 	- Can create in Power Query (Preferred as it is optimized for compression and performance)
 	- Can create in Power BI using DAX
+
+- Assume referential integrity 
+	- When creating relationships It enables queries on the data source to use INNER JOIN rather than OUTER JOIN which improves query efficiency 
 
 - Set up the Q&A feature
 	- [Azure Learning](https://docs.microsoft.com/en-us/power-bi/consumer/end-user-q-and-a)
@@ -804,6 +818,14 @@ TODO
 	- Markers : Avoid. Can bring distraction
 	- Themes : Use colors with contrast
 
+- Report Themes
+	- What can be configured in themes 
+		- Sequence of customer colors
+		- Default properties for new visuals
+	- What CANNOT configure
+		- Background color
+		- Background image
+
 ```python 
 TODO
  create a paginated report  - 
@@ -923,6 +945,8 @@ You have the option to send fewer queries . This is configured in options > quer
 
 ## Analyze the Data (10-15%)
 
+### Enhance reports to expose insights
+
 - Add Filters
 	- Filters only are available in Reports NOT Dashboards
 	- Slicers : Can add to report to filter visuals
@@ -996,7 +1020,7 @@ You have the option to send fewer queries . This is configured in options > quer
 	- It is possible that a filter slicer apply across multiple report pages.
 	- You have the option to sync and also show the slicer
 	- A slicer does not need to show to sync in a page
-	- Configure in View ribon in Report View
+	- Configure in View ribbon in Report View
 	
 ```python 
 TODO
@@ -1009,6 +1033,10 @@ TODO
 ```
 
 ### Perform advanced analysis
+
+[Learning Docs](https://docs.microsoft.com/en-gb/learn/modules/perform-analytics-power-bi/?WT.mc_id=cloudskillschallenge_bc12b5d7-d7ce-4fcd-aa6a-e29ed9d1f358)
+
+[Learning Docs 2](https://docs.microsoft.com/en-gb/learn/modules/ai-visuals-power-bi/?WT.mc_id=cloudskillschallenge_bc12b5d7-d7ce-4fcd-aa6a-e29ed9d1f358)
 
 ```python 
 TODO
@@ -1104,10 +1132,10 @@ TODO
 
 Workspaces are created in Power BI Service where you can upload and share report to visualisation consumers
 When you create you can chose from classic or modern ( recommended)
-As defauld once added user they are admin but can pick from roles
+As default once added user they are admin but can pick from roles
 	- Admin (do everything)
 	- Member (All that admin does except add remove users, delete workspace and update metadata)
-	- Contributor (cannot publish apps or edit app unless given ability by members or admins). Can create and publish content, can shedule refreshes
+	- Contributor (cannot publish apps or edit app unless given ability by members or admins). Can create and publish content, can schedule refreshes
 	- Viewer (Read only)
 
 There is a 1:1 relationship to Workspaces and App
@@ -1136,6 +1164,11 @@ then use the Refresh data button to refresh datasets that you determine as stale
 Sensitivity labels (https://docs.microsoft.com/en-us/power-bi/admin/service-security-apply-data-sensitivity-labels)
 - Sensitivity labels specify which data can be exported.
 
+- Share with Free License users
+	- Free License users can consume reports published when admins and Pro users assign workspaces to a capacity (in a Premium Subscription).
+	- Then free users can consume content without requiring to have Pro licenses. Within those workspaces, free users have elevated permissions.
+
+- All office 365 Global admins and Power Bi admins are automatically capacity admins of both Power Bi premium capacity and Power BI embedded capacity
 
 ```python 
 TODO
