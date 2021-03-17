@@ -1036,10 +1036,10 @@ You have the option to send fewer queries . This is configured in options > quer
 	- A typical bar or column chart visual in Power BI relates two data points: a measure and a dimension. A histogram differs slightly from a standard bar chart in that it only visualizes a single data point.
 	- To represent a histogram create a new grouping for the x-axis. 
 	- To create a group click in the fields pane on the field you want to create the group.
-
 		- For histogram grouping pick bin
-		- Define the min and max value
+		- Define the type of bin (Number of Bins)
 		- Define the number of bins
+		- THe min max are gray out (defined automatically)
 		- Then on the visual (clustered bar) drag the new group to the axis
 
 - Top N analysis
@@ -1078,7 +1078,7 @@ You have the option to send fewer queries . This is configured in options > quer
 		- Create a scatter chart
 			- To apply clustering to your scatter chart, select More options (...) in the upper-right corner of the visual and then select Automatically find clusters.
 			- In the window that pop up define the name and description of cluster and the number of bins you want in your cluster
-		
+	
 
 - Group and bin data for analysis
 	- When you create a visual power BI automatically aggregate data into categories and group according to your data categories
