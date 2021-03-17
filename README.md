@@ -144,12 +144,12 @@ TODO
  connect to a dataset using the XMLA endpoint
 ```
 
-
 ### Profile the data 
 
-	- Distribution: HIstogram of count of distinct and unique values
-	- Quality: check empty, validity percentage and errors
-	- Profile: Column in depth statistics
+
+- Distribution: HIstogram of count of distinct and unique values
+- Quality: check empty, validity percentage and errors
+- Profile: Column in depth statistics
 
 	- Profiling data is about studying the nuances of the data
 		- Anomalies
@@ -1021,12 +1021,76 @@ You have the option to send fewer queries . This is configured in options > quer
 	- You have the option to sync and also show the slicer
 	- A slicer does not need to show to sync in a page
 	- Configure in View ribbon in Report View
-	
+
+
+- Explore statistical summary
+	- Statistics show the distribution of your data
+	- Help you identify take ways and outliers
+	- Provide a quick description of your data
+	- PBI offers tools like
+		- Dax
+		- Visuals (Histograms, Bell Curves)
+		- Statistical programming languages R and Python
+	- In visualizations click value (right) to access aggregation functions (sum, count, average, min, max etc)
+	- You can use bar chart to represent Histograms and area chart for bell curves
+	- A typical bar or column chart visual in Power BI relates two data points: a measure and a dimension. A histogram differs slightly from a standard bar chart in that it only visualizes a single data point.
+	- To represent a histogram create a new grouping for the x-axis. 
+	- To create a group click in the fields pane on the field you want to create the group.
+
+		- For histogram grouping pick bin
+		- Define the min and max value
+		- Define the number of bins
+		- Then on the visual (clustered bar) drag the new group to the axis
+
+- Top N analysis
+	- Returns the top N rows of a specified table based on a criteria such as sales, count of orders and etc
+	- It is possible to sort from bottom to top
+	- Top N with DAX
+		``` Dax
+		Top 10 Products =
+		SUMX ( TOPN ( 10, Product, Product[Product Name], ASC ), [Total Sales] )
+
+		```
+	- It returns a table with top 10 products by Total Sales.
+
+- Identify Outliers
+	- Outliers is a type os anomaly in your data
+	- Outliers are data points that are significant different from your average data point.
+	- Identify Outliers with visuals
+		- The process of identifying outliers involves segmenting your data into two groups
+			- Contains the outliers
+			- Does not contain the outliers
+		- The best way to identify outliers is by using scatter chart
+	- Using DAX to identify outliers
+		```dax
+				Outliers =
+		CALCULATE (
+			[Order Qty],
+			FILTER (
+				VALUES ( Product[Product Name] ),
+				COUNTROWS ( FILTER ( Sales, [Order Qty] >= [Min Qty] ) ) > 0
+			)
+		)
+		```
+		- When you have created a new outlier measure, you can group your products into categories by using the grouping feature described above and below
+	- Apply clustering techniques
+		- allows you to identify a segment (cluster) of data that is similar to each other but dissimilar to the rest of the data.
+		- Create a scatter chart
+			- To apply clustering to your scatter chart, select More options (...) in the upper-right corner of the visual and then select Automatically find clusters.
+			- In the window that pop up define the name and description of cluster and the number of bins you want in your cluster
+		
+
+- Group and bin data for analysis
+	- When you create a visual power BI automatically aggregate data into categories and group according to your data categories
+	- Grouping is used for categories of data.
+	- Say you have a chart splitting your data by city and you want to display in 2 groups
+		- Create a list type of groups
+		- Major city
+		- Minor cities
+
+
 ```python 
 TODO
- perform top N analysis
- explore statistical summary
- use the Q&A visual
  add a Quick Insights result to a report
  create reference lines by using Analytics pane
  use the Play Axis feature of a visualization
@@ -1040,9 +1104,7 @@ TODO
 
 ```python 
 TODO
- identify outliers
  conduct Time Series analysis
- use groupings and binnings
  use the Key Influencers to explore dimensional variances
  use the decomposition tree visual to break down a measure
  apply AI Insights
