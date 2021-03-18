@@ -1053,6 +1053,36 @@ You have the option to send fewer queries . This is configured in options > quer
 		```
 	- It returns a table with top 10 products by Total Sales.
 
+	
+- AI powered analysis
+	- You can use the analyse feature in power BI. 
+	- Say in a time series you noticed an increase or decrease in sales in a particular month and wanted to understand why
+	- Right click on the month in the chart and chose analyse "Explain Increase" or "Explain Decrease"
+	- PBI will the pull another chart with an explanation. Say... category X had an significant increase on that month.
+
+- Quick insights
+	-  Quick insights feature in Power BI uses machine learning algorithms to go over your entire dataset and produce insights (results) for you quickly
+	- Quick insights are available in the Power BI Service
+	- Go to datasets and click on the quick insight
+	- Power BI will use various algorithms to search for trends in your dataset.
+	- The Quick Insights page contains up to **32 separate insight cards**, and each card has a chart or graph plus a short description.
+	- If you see an insight card that is particularly compelling, you can add it to your report. You can filter the insight on your report by using  filter pane and;
+	
+- Create reference Lines using the Analytics Pane
+
+[Docs](https://docs.microsoft.com/en-us/power-bi/transform-model/desktop-analytics-pane)
+
+```python 
+TODO
+ create reference lines by using Analytics pane
+```
+
+### Perform advanced analysis
+
+[Learning Docs](https://docs.microsoft.com/en-gb/learn/modules/perform-analytics-power-bi/?WT.mc_id=cloudskillschallenge_bc12b5d7-d7ce-4fcd-aa6a-e29ed9d1f358)
+
+[Learning Docs 2](https://docs.microsoft.com/en-gb/learn/modules/ai-visuals-power-bi/?WT.mc_id=cloudskillschallenge_bc12b5d7-d7ce-4fcd-aa6a-e29ed9d1f358)
+
 - Identify Outliers
 	- Outliers is a type os anomaly in your data
 	- Outliers are data points that are significant different from your average data point.
@@ -1078,7 +1108,10 @@ You have the option to send fewer queries . This is configured in options > quer
 		- Create a scatter chart
 			- To apply clustering to your scatter chart, select More options (...) in the upper-right corner of the visual and then select Automatically find clusters.
 			- In the window that pop up define the name and description of cluster and the number of bins you want in your cluster
-	
+
+- Conduct time series analysis
+	- To conduct a time series analysis in Power BI, you need to use a visualization type that is suitable for displaying trends and changes over time, such as a line chart, area chart, or scatter chart.
+	- Microsoft AppSource has an animation custom visual called Play Axis similar to the one that Hans Rosling presentation in 2007
 
 - Group and bin data for analysis
 	- When you create a visual power BI automatically aggregate data into categories and group according to your data categories
@@ -1088,27 +1121,37 @@ You have the option to send fewer queries . This is configured in options > quer
 		- Major city
 		- Minor cities
 
+- Use the [Key Influencers](https://docs.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-influencers)
+	- The Key influencers visual helps you understand the factors that are affecting a specific metric
+	- The visual also helps you to contrast the relative importance of these factors
+	- In the visual select the measure you want to understand the key influencer than drag the dimension column to explain by, then PBI will automatically prot a chart that explain the relationship between measure and column
 
-```python 
-TODO
- add a Quick Insights result to a report
- create reference lines by using Analytics pane
- use the Play Axis feature of a visualization
-```
 
-### Perform advanced analysis
+- Use the [Decomposition Tree](https://docs.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-decomposition-tree) visual
+	- The Decomposition Tree visual automatically aggregates your data and lets you drill down into your dimensions so that you can view your data across multiple dimensions
+	- The visualization requires two types of input:
+		- Analyze – the metric you would like to analyze. This has to be a measure or an aggregate.
+		- Explain By – one or more dimensions you would like to drill down into.
+	- AI Splits 
+		- These splits appear at the top of the list and are marked with a lightbulb and help you find high and low values in the data, automatically.
+	- Locking
+		- A content creator can lock levels for report consumers. When a level is locked, it cannot be removed or changed
+		- A consumer can explore different paths within the locked level but they cannot change the level itself.
+		- Limitations
+			- The maximum number of levels for the tree is 50.
+			- The decomposition tree is not supported in the following scenarios
+				- On-premises Analysis Services
+				- Azure Analysis Services
+				- Power BI Report Server
+				- Publish to Web
+				- Complex measures and measures from extensions schemas in 'Analyze'
+				- Support inside Q&A
 
-[Learning Docs](https://docs.microsoft.com/en-gb/learn/modules/perform-analytics-power-bi/?WT.mc_id=cloudskillschallenge_bc12b5d7-d7ce-4fcd-aa6a-e29ed9d1f358)
-
-[Learning Docs 2](https://docs.microsoft.com/en-gb/learn/modules/ai-visuals-power-bi/?WT.mc_id=cloudskillschallenge_bc12b5d7-d7ce-4fcd-aa6a-e29ed9d1f358)
-
-```python 
-TODO
- conduct Time Series analysis
- use the Key Influencers to explore dimensional variances
- use the decomposition tree visual to break down a measure
- apply AI Insights
-```
+- Apply AI Insights
+	-  AI Insights feature allows you to connect to a collection of pretrained machine learning models that you can apply to your data to enhance your data preparation efforts.
+	- AI Insight is a Power Query Editor feature
+	- Can be assessed by the home ribbon or the add column ribbon
+	- Will be available for you to choose from: Text Analytics, Vision, and Azure Machine Learning.
 
 
 ## Deploy and Maintain Deliverables (10-15%)
@@ -1126,7 +1169,7 @@ TODO
 	- This allow to load different data in the report depending on the parameter
 	- Steps
 		- Write a SQL query with a parameter &parameter
-		- Needs to be type text and configured in the M code outside the query string: https://docs.microsoft.com/en-gb/learn/modules/manage-datasets-power-bi/2-report-parameters
+		- Needs to be type text and configured in the M code outside the [query string](https://docs.microsoft.com/en-gb/learn/modules/manage-datasets-power-bi/2-report-parameters)
 
 - What if scenario
 	- Create a New Parameter in report view (modelling)
@@ -1134,7 +1177,7 @@ TODO
 	- Add this to a measure and then do what if analysis with it
 	
 	
-- Configure On-Premisses Gateway - https://docs.microsoft.com/en-us/data-integration/gateway/service-gateway-app
+- Configure [On-Premisses Gateway](https://docs.microsoft.com/en-us/data-integration/gateway/service-gateway-app)
 	- The on premisses gateway can be in two modes
 		- Personal : Installed in the local machine and used by only 1 user
 		- Organizational: Installed in the same server where the data source is and can be used to multiple users in the organization
@@ -1149,16 +1192,15 @@ TODO
 	- Need to create a gateway connection first
 	- Can refresh 48 times a day on premium and 8 times on shared capacity
 	- It is possible to refresh manually as many time as you want and that does not affect the scheduled refresh
-	- After four (4) consecutive failures the sheduled refresh deativate
+	- After four (4) consecutive failures the scheduled refresh deactivate
 	
-- Configure incremental refresh settings - https://docs.microsoft.com/en-us/power-bi/admin/service-premium-incremental-refresh
+- Configure [incremental refresh settings](https://docs.microsoft.com/en-us/power-bi/admin/service-premium-incremental-refresh)
 	-  allows you to refresh large datasets quickly and as often as you need, without having to reload historical data each time.
 	- Incremental refresh should only be used on data sources and queries that support query folding. (e.g. SQL DB)
 	- RangeStart and RangeEnd values must be the name of the parameters
 	-  Type is set to Date/Time and the Suggested Value is set to Any value.
-	- In power query select the column to filter (date column) and right click and pick option 
-			custom filter https://docs.microsoft.com/en-gb/learn/modules/manage-datasets-power-bi/6-incremental-refresh
-	- In power BI right click in the table and select incremental refresh
+	- In power query select the column to filter (date column) and right click and pick option custom filter
+	- In power BI right click in the table and select [incremental refresh](https://docs.microsoft.com/en-us/power-bi/admin/service-premium-incremental-refresh)
 	
 - Manage and promote datasets
 	- You want governance in your data and
@@ -1169,11 +1211,11 @@ TODO
 		- Promotion: Means data is ready for use and any member of the worspace can do it
 		- Certification: Certify a promoted dataset as "source of truth" and only can be done by Adm role
 		
-- Troubleshoot service connectivity - https://docs.microsoft.com/en-us/power-bi/connect-data/refresh-troubleshooting-refresh-scenarios
+- Troubleshoot [service connectivity](https://docs.microsoft.com/en-us/power-bi/connect-data/refresh-troubleshooting-refresh-scenarios)
 	- Cloud sources (Azure) does not require gateways
 	- Always make sure credentials are up to date. User service accounts where password does not expire
 
-- Query caching (Premium Feature) - https://docs.microsoft.com/en-us/power-bi/connect-data/power-bi-query-caching
+- Query caching [(Premium Feature)](https://docs.microsoft.com/en-us/power-bi/connect-data/power-bi-query-caching)
 	- With the Query Caching feature, you can use the local caching services of Power BI to process
 			query results. Instead of relying on the dataset to calculate queries
 	- Query Caching is a local caching feature that maintains results on a user and report basis. 
@@ -1192,7 +1234,7 @@ TODO
 
 [Azure Docs](https://docs.microsoft.com/en-gb/learn/modules/create-manage-workspaces-power-bi/1-introduction)
 
-Workspaces are created in Power BI Service where you can upload and share report to visualisation consumers
+Workspaces are created in Power BI Service where you can upload and share report to visualization consumers
 When you create you can chose from classic or modern ( recommended)
 As default once added user they are admin but can pick from roles
 	- Admin (do everything)
@@ -1203,7 +1245,7 @@ As default once added user they are admin but can pick from roles
 There is a 1:1 relationship to Workspaces and App
 When publish the member or admin can allow users to share, download data and make copies of report (tick box options)
 If any changes made in the workspace they do not automatically get pushed to the app It needs to be updates 
-A Workspace acts a staging area to to an app where it is the tools to the organisationwide can consume reports
+A Workspace acts a staging area to to an app where it is the tools to the organization wide can consume reports
 
 Monitor Usage Performance
 - Usage metrics can only be accessed by Admin, Members or Contributors
@@ -1213,13 +1255,13 @@ Recommend a development life cycle strategy
 
 - Deployment Pipelines https://docs.microsoft.com/en-us/power-bi/create-reports/deployment-pipelines-best-practices
 If in a premium capacity you can use the Deployment Pipeline which is a premium capacity feature
-It manages content in diferent environements (Development, Test and Production)
+It manages content in different environments (Development, Test and Production)
 It increases productivity, Allow Faster Delivery of content, Lower manual human intervention
 
 Troubleshoot data by viewing its lineage
 - Data lineage refers to the path that data takes from the data source to the destination.
 - The Lineage view is only accessible to Admin, Contributor, and Member roles.
-- Artifacts include data sources, datasets and dataflows, reports, and dashboards. 
+- Artifacts include data sources, datasets and dataflow, reports, and dashboards. 
 - By using the Lineage view feature, you can go through the different datasets in one view and 
 then use the Refresh data button to refresh datasets that you determine as stale.
 
