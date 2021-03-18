@@ -146,8 +146,7 @@ TODO
 
 ### Profile the data 
 
-
-- Distribution: HIstogram of count of distinct and unique values
+- Distribution: Histogram of count of distinct and unique values
 - Quality: check empty, validity percentage and errors
 - Profile: Column in depth statistics
 
@@ -266,7 +265,6 @@ TODO
 			- Full Outer
 			- Inner
 
-
 - Use Advanced Editor to modify M code
 	- Each cleaning step that you made was likely created by using the graphical interface, but Power Query uses the M language behind the scenes.
 	- Power Query Advanced Editor is where all the M code was written
@@ -311,7 +309,7 @@ TODO
 - The best practice for a data model in Power BI is a Star Schema
 - The reason is that a Star Schema optimise performance and make dax code simpler to filter on dimension
 - The granularity of the model need be at the level it is required as it can increase cardinality and reduce performance
-- A data model need to as much as possible denormalize tom reduce the number of tables and follow a Start Schema and avoid snow flake patterns
+- A data model need to as much as possible de-normalize tom reduce the number of tables and follow a Start Schema and avoid snow flake patterns
 - Power BI allows relationships to be built from tables with different data sources, a powerful function that enables you to pull one table from Microsoft Excel and another from a relational database
 
 - Star Schema
@@ -392,7 +390,7 @@ TODO
 	- The rule is that if propagates from the one to the many side of the relationship
 	- Cardinalities can be
 		- One-to-many or Many-to-One (same)
-		- One-to-One: Unique value in both tables. Indicates that there are space to denormalize the model and a redundant relationship exists
+		- One-to-One: Unique value in both tables. Indicates that there are space to de-normalize the model and a redundant relationship exists
 		- Many-to-Many: There are many value in both tables. Although possible it is not recommended as it can generate ambiguity.
 
 - Cross-filter direction
@@ -493,7 +491,7 @@ TODO
 			- Test Role(s)
 			- Deploy PBI Service
 		- Steps - PBI Service
-			- In Dataset (elipsis ...) select Security
+			- In Dataset (ellipsis ...) select Security
 			- Add Members to the role
 			- Test the roles
 	- Dynamic Method
@@ -503,7 +501,6 @@ TODO
 			- Same Steps as above
 		- When creating the role use the function userprincipalname() which will compare the 
 			email of person signed in and the email filter in the report
-
 
 ### Create measures by using DAX
 
@@ -674,11 +671,11 @@ TODO
 [Azure Docs](https://docs.microsoft.com/en-gb/learn/modules/visuals-power-bi/)
 
 - Add visualization items to reports
-	- Power BI come with a range out of the box visuals that can be selected form the visualisation pane
-		- To add more visuals click on the elipses and can chose from Marketplace or Upload a file
+	- Power BI come with a range out of the box visuals that can be selected form the visualization pane
+		- To add more visuals click on the ellipses and can chose from Marketplace or Upload a file
 	- Table and Matrix
-		- Are grid like visualisations
-		- Table is simpler and sumarize measures in values (measure) by a chosen dimension (column)
+		- Are grid like visualizations
+		- Table is simpler and summarize measures in values (measure) by a chosen dimension (column)
 		- Matrix allow to "slice" in rows and columns. Similar to a pivot table
 		- Matrix can cross highlight other charts. Any chart can.
 		- Matrix options: Row, Column and Value
@@ -691,7 +688,7 @@ TODO
 		- Present Trend over time
 		- Options
 			- Axis, Value, Legend, Secondary axis and tooltips
-	- Pie charts, donut charts, and treemaps
+	- Pie charts, donut charts, and tree-maps
 		- Show relationship of the part in a whole
 		- Avoid presenting too many categories because it results in thin slices (or rectangles) that provide no added value to the user
 		- Options
@@ -828,7 +825,7 @@ TODO
 
 ```python 
 TODO
- create a paginated report  - 
+ create a paginated report
 ```
 
 [Azure Docs](https://docs.microsoft.com/en-gb/learn/modules/create-paginated-reports-power-bi/)
@@ -849,7 +846,7 @@ TODO
 	- SSRS
 	- Excel
 
-- Dashboard alerts give you alett if a visual data reach a certain threshold and it can ONLY be applied to the following visuals
+- Dashboard alerts give you alert if a visual data reach a certain threshold and it can ONLY be applied to the following visuals
 	- KPI
 	- Cards
 	- Gauge
@@ -1053,7 +1050,6 @@ You have the option to send fewer queries . This is configured in options > quer
 		```
 	- It returns a table with top 10 products by Total Sales.
 
-	
 - AI powered analysis
 	- You can use the analyse feature in power BI. 
 	- Say in a time series you noticed an increase or decrease in sales in a particular month and wanted to understand why
@@ -1069,13 +1065,26 @@ You have the option to send fewer queries . This is configured in options > quer
 	- If you see an insight card that is particularly compelling, you can add it to your report. You can filter the insight on your report by using  filter pane and;
 	
 - Create reference Lines using the Analytics Pane
+	- [Docs](https://docs.microsoft.com/en-us/power-bi/transform-model/desktop-analytics-pane)
+	- With the Analytics pane in Power BI Desktop, you can add dynamic reference lines to visuals, and provide focus for important trends or insights
+	- The Analytics pane only appears when you select a visual on the Power BI Desktop canvas
+	- You can create the following types of dynamic reference lines
+		- X-Axis constant line
+		- Y-Axis constant line
+		- Min line
+		- Max line
+		- Average line
+		- Median line
+		- Percentile line
+		- Symmetry shading
+	- Not all lines are available for all visual types (e.g. Not available for Maps)
+	- You can add constant line with a set value or a dynamic line based on a calculation (e.g. Min, Max etc)
+	- Applying forecast
+		- If you have time data in your data source, you can use the forecasting feature
+		- You may specify many inputs to modify the forecast, such as the Forecast length or the Confidence interval.
+		- Forecasting feature is only available for line chart visuals.
+		- [Limitations](https://docs.microsoft.com/en-us/power-bi/transform-model/desktop-analytics-pane#limitations)
 
-[Docs](https://docs.microsoft.com/en-us/power-bi/transform-model/desktop-analytics-pane)
-
-```python 
-TODO
- create reference lines by using Analytics pane
-```
 
 ### Perform advanced analysis
 
@@ -1184,8 +1193,7 @@ TODO
 	- The gateway is a mean of confecting the power bi service (cloud) to on premisses sources
 	- It allow save traffic of credentials over the internet
 	- It allows for scheduled refresh of the power bi service to get data from on premisses sources
-	
-	
+		
 - Configure Schedule refresh
 	-  Scheduled refresh feature in Power BI allows you to define the frequency and time slots to refresh a particular dataset
 	- Saves time as you do not need to do it manually
@@ -1221,12 +1229,57 @@ TODO
 	- Query Caching is a local caching feature that maintains results on a user and report basis. 
 			This service is only available to users with *Power BI Premium or *Power BI Embedded.
 	- To configure: Go to a dataset in your workspace and open its Settings page. 
-				
+			
+
+- Configure row-level security group membership [source](https://docs.microsoft.com/en-us/power-bi/admin/service-admin-rls)
+	- In the Power BI service, members of a workspace have access to datasets in the workspace. RLS doesn't restrict this data access.
+	- You can configure RLS for data models imported into Power BI with Power BI Desktop
+	- You can also configure RLS on datasets that are using DirectQuery, such as SQL Server
+	- For Analysis Services or Azure Analysis Services lives connections, you configure Row-level security in the model, not in Power BI Desktop. The security option will not show up for live connection datasets.
+	- To Manage  security in your model once published in the PBI Service
+		- Select the More options menu for a dataset. This menu appears when you hover on a dataset name
+			- Select Security
+			- Add members to a role you created in Power BI Desktop
+			- You can only create or modify roles within Power BI Desktop
+			- Only the owners of the dataset will see Security.
+			- If the dataset is in a Group, only administrators of the group will see the security option.
+		- Add members
+			- Add a member to the role by typing in the email address or name of the user or security group.
+			- You **can't** add Groups created in Power BI
+			- You can add members external to your organization.
+			- You can use the following groups to set up row level security.
+				- Distribution Group
+				- Mail-enabled Group
+				- Security Group
+			- **Office 365 groups are not supported** and cannot be added to any roles
+
+- Provide access to datasets [source](https://docs.microsoft.com/en-us/power-bi/connect-data/service-datasets-build-permissions)
+	- Once a data model is published to the PBI service it also store the underlying dataset which can be reused in other PBI reports
+	- If you want to allow other members of your organization to have access to a dataset that you published you can do this by providing access to it.
+	- To achieve this you need to give users **Build permission**, they can build new content on your dataset, such as reports, dashboards, pinned tiles from Q&A, paginated reports, and Insights Discovery.
+	- Users also need Build permissions to work with the data outside Power BI
+		- To export the underlying data.
+		- To build new content on the dataset such as with Analyze in Excel.
+		- To access the data via the XMLA endpoint.
+	- You can give access in different ways
+		- Members of a workspace with at least a Contributor role automatically have Build permission
+		- Members of the workspace where the dataset resides can assign the permission to specific users or security groups in the Permission center.	
+			- Select More options (...) next to a dataset > Manage Permissions.
+			- An admin or member of the workspace where the dataset resides can decide during app publishing that users with permission for the app also get Build permission for the underlying datasets
+	- Once the Built Permission is created all the activity of that permission will be tracked in the dataset lineage so the owner of the dataset can track where the dataset has been used to create dataset in the organization.
+
+- Configure large dataset format [source](https://docs.microsoft.com/en-us/power-bi/admin/service-premium-large-models)
+	- With Premium capacities, large datasets beyond the default limit can be enabled with the Large dataset storage format setting. 
+	- When enabled, dataset size is limited by the Premium capacity size or the maximum size set by the administrator.
+	- While required for datasets to grow beyond 10 GB, enabling the Large dataset storage format setting has additional benefits
+	- TO enables
+		- If your dataset will become larger and progressively consume more memory, be sure to configure Incremental refresh.
+		- Publish the model as a dataset to the service.
+		- In the service > dataset > Settings, expand Large dataset storage format, click the slider to On, and then click Apply.
+	[video](https://docs.microsoft.com/en-us/power-bi/admin/service-premium-large-models)
 
 ```python 
 TODO
-  configure row-level security group membership 
-  providing access to datasets 
   configure large dataset format
  ```
 
