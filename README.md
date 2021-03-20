@@ -136,13 +136,115 @@ Differences
 		- Can use left, inner and full outer
 	- Appending: Need to have same number of columns and types
 
-```python 
-TODO
- Microsoft Dataverse
- use or create a PBIDS file
- use or create a data flow
- connect to a dataset using the XMLA endpoint
-```
+- [Use or Create a PBIDS file](https://docs.microsoft.com/en-us/power-bi/connect-data/desktop-data-sources#how-to-create-a-pbids-connection-file)
+	- PBIDS files are files that you can provide to another user with already the connections setting configured.
+	- This will save time for the user to having to go through the process of Get Data> Select Source > Enter source connections details and etc
+	- Once you open the file it takes you straight to the source tables for instance if the connection is a database.
+	- To create the PBIDS file:
+		- Select File > Options and settings > Data source settings
+		- Select Export PBIDS.
+		- Save file (Rename if you want but it will give you a default name based on your connection name)
+	- The saved file is a text file is a JSON like structure that you actually can edit or create manually if you know the structure
+	- Below an example of connecting to SQL server.
+	```
+	{
+	"version": "0.1",
+	"connections": [
+		{
+		"details": {
+			"protocol": "tds",
+			"address": {
+			"server": "Server_Name",
+			"database": "AdventureWorks2019"
+			},
+			"authentication": null,
+			"query": null
+		},
+		"options": {},
+		"mode": null
+		}
+	]
+	}
+	```
+	- If mode is missing/null in the file, the user who opens the file in Power BI Desktop is prompted to select DirectQuery or Import.
+	- [Examples](https://docs.microsoft.com/en-us/power-bi/connect-data/desktop-data-sources#pbids-file-examples)
+
+- Use or create a data flow
+	- [Documentation Create](https://docs.microsoft.com/en-us/power-bi/transform-model/dataflows/dataflows-create)
+	- [Documentation Create and use](https://docs.microsoft.com/en-us/power-query/dataflows/create-use)
+	- A Dataflow in other words is Power Query running in the cloud(PowerBI Service)
+	- A dataflow is a collection of tables that are created and managed in workspaces in the Power BI service. 
+	- Create a DataFlow
+		- To create a dataflow, launch the Power BI service in a browser then select a workspace (dataflows are not available in my-workspace in the Power BI service)
+		- There are a multiple of ways to create or build on top of a new dataflow:
+			- Create a dataflow using define new tables: Connecting to a new source and "creating a table(query) in data flow. E.g. connecting to a SQL database and importing some data into dataflow
+			- Create a dataflow using linked tables: Enables you to reference an existing table, defined in another dataflow, in a read-only fashion.
+				- Linked tables are available only with Power BI Premium.
+			- Create a dataflow using a computed table: Creating a dataflow using a computed table allows you to reference a linked table and perform operations on top of it in a write-only fashion. 
+				- The result is a new table, which is part of the dataflow. To convert a linked table into a computed table, you can either create a new query from a merge operation, or if you want to edit or transform the table, create a reference or duplicate of the table.
+			- Create a dataflow using import/export: Creating a dataflow using import/export lets you import a dataflow from a file. This is useful if you want to save a dataflow copy offline, or move a dataflow from one workspace to another.
+		- Configuring a Dataflow
+			- You can configure Dataflow schedule refresh and define how often you want it refreshed
+			- In the service find the dataflow and select the More menu (the ellipsis) and select Settings.
+			- In configuration you can set
+				- Gateway Connection: What gateway dataflow connects to
+				- Data Source Credentials: Data source credential dataflow connects to
+				- Sensitivity Label: Define the sensitivity of the data
+				- Take ownership: If you are not the owner will be prompted to it
+				- Scheduled Refresh
+				- Enhanced Compute Engine settings: Here you can define whether the dataflow is stored inside the compute engine.
+					- The compute engine allows subsequent dataflows, which reference this dataflow, to perform merges and joins and other transformations much faster than you would otherwise.
+					- It also allows DirectQuery to be performed over the dataflow
+		- Consuming a dataflow
+			- A dataflow can be consumed in the following three ways:
+				- Create a linked table from the dataflow to allow another dataflow author to use the data
+				- Create a dataset from the dataflow to allow a user to utilize the data to create reports
+				- Create a connection from external tools that can read from the CDM (Common Data Model) format
+		- Dataflow [best practices](https://docs.microsoft.com/en-us/power-bi/transform-model/dataflows/dataflows-best-practices)
+		
+- Connect Microsoft Dataverse Power BI
+	- [Documentation](https://docs.microsoft.com/en-us/powerapps/maker/data-platform/data-platform-powerbi-connector#connect-to-dataverse-using-the-connector)
+	- Common Data Service has been renamed to Microsoft Dataverse.
+	- Microsoft Dataverse allows you to connect directly to your data using Power BI Desktop to create reports and publish them to Power BI.
+	- Prerequisites
+		- Dataverse environment with maker permissions to access the portal and read permissions to access data within tables.
+		- You must have the appropriate Power BI license
+		- To use the Dataverse connector, the Enable TDS endpoint setting must be enabled in your environment
+		- Find your Dataverse environment URL
+			- Open Power Apps, select the environment you're going to connect to, select Settings in the top-right corner, and then select Session details.
+			- The URL will be in the format: https://yourenvironmentid.crm.dynamics.com/. Make sure you remove https:// and the trailing / from the URL before pasting it to connect to your environment.
+	- In Power BI to connect to Dataverse just select the dataverse connector and enter the environment URL as described above
+	- Select the tables data you want to import and import
+
+- Connect to a dataset using the XMLA endpoint
+	- [Documentation](https://docs.microsoft.com/en-us/power-bi/admin/service-premium-connect-tools)
+	- This feature is only available with PBI Premium, Premium per user and Embeded
+	- What's an XMLA endpoint
+		- Power BI Premium uses the XML for Analysis (XMLA) protocol for communications between client applications and the engine that manages your Power BI workspaces and datasets.
+		-  XMLA is the same communication protocol used by the Microsoft Analysis Services engine
+		- By default, **read-only** connectivity using the endpoint is enabled for the Datasets workload in a capacity
+		- With read-only, data visualization applications and tools can query dataset model data, metadata, events, and schema.
+			- Read-write operations using the endpoint can be enabled providing additional dataset management, governance, advanced semantic modeling, debugging, and monitoring
+			- With read-write enabled, Power BI Premium datasets have more parity with Azure Analysis Services and SQL Server Analysis Services enterprise grade tabular modeling tools and processes.
+	- These are some client tools that can connect to a XMLA end point
+		- Visual Studio with Analysis Services projects - SSDT
+		- SQL Server Management Studio (SSMS) - Supports DAX, MDX, and XMLA queries.
+		- SQL Server Profiler – Installed with SSMS
+		- Analysis Services Deployment Wizard – Installed with SSMS, 
+		- PowerShell cmdlets 
+		- Power BI Report Builder
+		- Tabular Editor - An open-source tool for creating, maintaining, and managing tabular models using an intuitive, lightweight editor.**XMLA read-write is required** for metadata operations
+		- DAX Studio – An open-source tool for DAX authoring, diagnosis, performance tuning, and analysis. Features include object browsing, integrated tracing, query execution breakdowns with detailed statistics, DAX syntax highlighting and formatting. **XMLA read-only is required**
+		- ALM Toolkit: An open-source schema compare tool for Power BI datasets, most often used for application lifecycle management (ALM) scenarios. **XMLA read-write is required** for metadata operations.
+		- Microsoft Excel – Excel PivotTables are one of the most common tools used to summarize, analyze, explore, and present summary data from Power BI datasets
+	- To enable read-write for a capacity
+		- In the Admin portal, select Capacity settings > Power BI Premium > capacity name.
+		- Expand Workloads. In the XMLA Endpoint setting, select Read Write.
+	- Connecting to a Premium workspace
+		- in workspace Settings > Premium > Workspace Connection, select Copy.
+	- Security
+		- In addition to the XMLA Endpoint property being enabled read-write by the capacity admin, the tenant-level setting Allow XMLA endpoints and Analyze in Excel with on-premises datasets must be enabled in the admin portal. If you need to generate AIXL files that connect to the XMLA Endpoint, the tenant-level setting Allow live connections should also be enabled. These settings are both enabled by default.
+		- Allow XMLA endpoints and Analyze in Excel with on-premises datasets is an integration setting.
 
 ### Profile the data 
 
@@ -1271,17 +1373,23 @@ You have the option to send fewer queries . This is configured in options > quer
 - Configure large dataset format [source](https://docs.microsoft.com/en-us/power-bi/admin/service-premium-large-models)
 	- With Premium capacities, large datasets beyond the default limit can be enabled with the Large dataset storage format setting. 
 	- When enabled, dataset size is limited by the Premium capacity size or the maximum size set by the administrator.
-	- While required for datasets to grow beyond 10 GB, enabling the Large dataset storage format setting has additional benefits
+	- While required for datasets to grow beyond 10 GB, enabling the Large dataset storage format setting has additional benefits.
+		- Like If you're planning to use XMLA endpoint based tools for dataset write operations
+		- Then be sure to enable the setting, even for datasets that you wouldn't necessarily characterize as a large dataset
+		- When enabled, the large dataset storage format can improve XMLA write operations performance.
+		- This allow the use open source tools like [ALM toolkit]https://www.sqlbi.com/tools/alm-toolkit/, which is the same tool as [BISM Normalizer](https://www.sqlbi.com/tools/bism-normalizer/) for Analysis Services.
+			- Such tools allow you to connect to the model in the service and make updates of only metadata schema in a very granular way and compare schema changes.
+			- This allow to change your model without having to load the full model and data that you imported to PBI desktop.
 	- TO enables
 		- If your dataset will become larger and progressively consume more memory, be sure to configure Incremental refresh.
 		- Publish the model as a dataset to the service.
 		- In the service > dataset > Settings, expand Large dataset storage format, click the slider to On, and then click Apply.
-	[video](https://docs.microsoft.com/en-us/power-bi/admin/service-premium-large-models)
-
-```python 
-TODO
-  configure large dataset format
- ```
+		- Invoke a refresh to load historical data based on the incremental refresh policy. The first refresh could take a while to load the history. Subsequent refreshes should be faster, depending on your incremental refresh policy
+		- Chris Wade [video](https://docs.microsoft.com/en-us/power-bi/admin/service-premium-large-models) about PBI premium plan to have same capability of Analysis Services 
+	- Set default storage format
+		- You can set the all dataset published to premium to be large dataset format
+		- in the  Settings > Premium.
+		- Default storage format, select Large dataset storage format, 
 
 ### Create and manage workspaces 
 
@@ -1327,9 +1435,17 @@ Sensitivity labels (https://docs.microsoft.com/en-us/power-bi/admin/service-secu
 
 - All office 365 Global admins and Power Bi admins are automatically capacity admins of both Power Bi premium capacity and Power BI embedded capacity
 
-```python 
-TODO
- configure subscriptions
-```
+- Configure PBI Subscription
+	- [Documentation](https://docs.microsoft.com/en-us/power-bi/collaborate-share/service-report-subscribe)
+	- The basic process for subscribing your colleagues and others to report pages, dashboards, and paginated reports is the same as [subscribing yourself](https://docs.microsoft.com/en-us/power-bi/consumer/end-user-subscribe).
+	- By subscribing to report pages and dashboards Power BI will email a snapshot to your inbox.
+	- You tell PBI how often (Daily, weekly etc) you want it or when the data is refreshed or a specific time
+	- When you receive the email, it includes a link to "go to report or dashboard
+	- Creating a subscription for yourself requires a Power BI Pro or Premium per user license. 
+	- Admins control subscription activity
+		- In the admin portal the admin can
+			- Enable email subscriptions for all members of the organization.
+			- Enable specific users to send email subscriptions to external users. See Invite external users to your organization.
+		- Admins can audit subscription activity by analyzing the audit logs data
 
 
