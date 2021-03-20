@@ -529,10 +529,29 @@ Differences
 		- Click ok and the measure will be created and write the DAX for you
 	- This is a good way to learn DAX (maybe not... :) )
 
-```python 
-TODO
- design the data model to meet performance requirements
-```
+
+- Design the data model to meet performance requirements
+	- Throughout my notes here in various sessions I talked about that you can do to optimize model performance
+	- There is [this guide]((https://docs.microsoft.com/en-us/power-bi/guidance/power-bi-optimization)) in the docs which gives some guidelines and link to resources
+	- The main takes are
+		- Develop a Star Schema
+		- Import only data you need. E.g. remove unnecessary columns
+		- Analyse performance of visuals loading and querying the data
+		- Use managed aggregations 
+		- Reduce cardinal levels
+		- Limit visuals per report pages
+			- Use drill through and tooltip visuals to avoid cramming to many visuals in one page
+		- Evaluate custom vision performance before bringing it to your report
+		- Manage capacity settings
+		- Verify network latency
+			- Tools such as [Azure Speed Test](https://azurespeedtest.azurewebsites.net/)
+		- [Monitoring performance](https://docs.microsoft.com/en-us/power-bi/guidance/monitor-report-performance)
+			- Use Query Diagnostic (power query)
+			- Use Performance Analyzer (PBI Desktop)
+			- Use SQL Server Profiler
+			- Use Dax Studio
+			- Monitor Premium metrics (only for premium capacity)
+		
 
 ### Develop a data model
 
@@ -605,6 +624,8 @@ TODO
 			email of person signed in and the email filter in the report
 
 ### Create measures by using DAX
+
+[Learning Page Documentation](https://docs.microsoft.com/en-gb/learn/paths/dax-power-bi/)
 
 ```python 
 TODO
@@ -924,6 +945,9 @@ TODO
 	- What CANNOT configure
 		- Background color
 		- Background image
+
+- Create Paginated Report
+	- [Learning Documentation](https://docs.microsoft.com/en-gb/learn/modules/create-paginated-reports-power-bi/)
 
 ```python 
 TODO
