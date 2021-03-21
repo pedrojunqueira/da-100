@@ -948,6 +948,41 @@ TODO
 
 - Create Paginated Report
 	- [Learning Documentation](https://docs.microsoft.com/en-gb/learn/modules/create-paginated-reports-power-bi/)
+	- Paginated reports give a pixel-perfect view of the data. It is ideal to generate table reports that go over multiple pages. For example printing invoices, list of addresses and etc
+	- Pixel perfect is the ability to control the report rendering in a page with a pixel precision
+	- Power BI paginated reports are descendants of SQL Server Reporting Services (SSRS) and they have a lot in common
+	- Power BI paginated reports are not created in Power BI Desktop
+		- They are built by using Power BI Report Builder. 
+		- Power BI paginated reports are a feature of **Power BI Premium.**
+	- Get data
+		- Getting data in a Power BI paginated report does not involve data cleaning steps
+		- In fact, data is not stored in a Power BI paginated report dataset
+		- Data is retrieved in an unaltered form from the data source
+		- Data can be collected from multiple data sources, including Microsoft Excel, Oracle, SQL Server, and many more.
+		- Data from different data sources **cannot be merged** into a single data model.
+		- Each source must be used for a different purpose
+		- Paginated reports have an [expression language](https://docs.microsoft.com/en-us/sql/reporting-services/report-design/expressions-report-builder-and-ssrs?view=sql-server-ver15) that can be used to look up data in different datasets, but it is nothing like Power Query.
+		- Power BI paginated reports can use a dataset from Power BI service which can be transformed as a previous step
+	- Data Source
+		- A Data Source is a connection to a source where you create to a source like for example a SQL server
+	- Dataset
+		- Is the basis for your report which is derived to the Data Source
+		- In a database a Dataset can be a text query or a Stored procedure
+	- Create a paginated report
+		- Once you set a Source and Created a Dataset you are ready to create a report
+		- To create a report you must add one visual at least. Select the Insert Tab
+		- Most common visual is a Table which can be done from scratch or use the wizard
+	- Add parameters
+		- To add a parameter, right-click Parameters and select Add Parameter
+		- Once you configured the parameter you can add as a variable in the Dataset with a `@` before the parameter like `@parameterName`
+	- Work with charts on the report
+		- In insert either select chart icon and add or right click in the canvas and insert chart
+		- Once the chart is in drag fields and how you want to aggregate and categorize in chart.
+		- Configure labels by clicking and using the format ribbon or de property using expressions 
+	- Publish
+		- Click publish and select workspace. 
+		- Work the same as Power BI
+	
 
 ```python 
 TODO
