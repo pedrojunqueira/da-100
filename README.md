@@ -972,7 +972,7 @@ TODO
 		- Once you set a Source and Created a Dataset you are ready to create a report
 		- To create a report you must add one visual at least. Select the Insert Tab
 		- Most common visual is a Table which can be done from scratch or use the wizard
-	- Add parameters
+	- Add [parameters](https://docs.microsoft.com/en-us/power-bi/paginated-reports/paginated-reports-parameters)
 		- To add a parameter, right-click Parameters and select Add Parameter
 		- Once you configured the parameter you can add as a variable in the Dataset with a `@` before the parameter like `@parameterName`
 	- Work with charts on the report
@@ -982,14 +982,8 @@ TODO
 	- Publish
 		- Click publish and select workspace. 
 		- Work the same as Power BI
+	- Paginated Report in a Day [Course](https://docs.microsoft.com/en-us/power-bi/learning-catalog/paginated-reports-online-course)
 	
-
-```python 
-TODO
- create a paginated report
-```
-
-[Azure Docs](https://docs.microsoft.com/en-gb/learn/modules/create-paginated-reports-power-bi/)
 
 ### Create dashboards 
 
