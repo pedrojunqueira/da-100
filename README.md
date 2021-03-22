@@ -3,12 +3,15 @@
 
 This are my notes as I cover the DA-100 exam curriculum
 
+Includes all updates for the [latest syllabus](https://query.prod.cms.rt.microsoft.com/cms/api/am/binary/RE4qlRu) to be effective from March 23rd 2021
+
 ## Prepare the Data (20-25%)
 
 ### Get data from different data sources 
 
 Azure Doc: [Get Data](https://docs.microsoft.com/en-gb/learn/modules/get-data/)
 
+- Importing documents
 - Documents are flat files with no Hierarchy all data is in a single file with the same structure (.csv, .txt, xlsx)
 - Flat files (documents) can be imported from	
 	- Local
@@ -17,8 +20,8 @@ Azure Doc: [Get Data](https://docs.microsoft.com/en-gb/learn/modules/get-data/)
 	- SharePoint - Team Sites. Works  similar to OneDrive business but connects to the URL or Root Folder
 
 - Importing data options
-	- Load the data: straight into PBI desktop
-	- Transform the data. Take you to Power Query
+	- **Load**: straight into PBI desktop
+	- **Transform**: Take you to Power Query
 	
 - Connecting to database offer options
 	- Windows credentials
@@ -26,16 +29,17 @@ Azure Doc: [Get Data](https://docs.microsoft.com/en-gb/learn/modules/get-data/)
 	- Microsoft Account
 - To use a query statement to import data use the advanced options
 
-- To change data source settings can be done from the PBI Menu (Home>Query>Transform Data> Data Source Settings
-		or from within the PowerQuery (Data Source >Data Source Settings)
+- To change data source settings can be done from:
+	- The PBI Menu (Home>Query>Transform Data> Data Source Settings or 
+	- From within the PowerQuery (Data Source >Data Source Settings)
 
 - Importing folder and combining file (binary)
 	-  If you have multiple files that have the same schema, combine them into a single logical table
 	[Azure Docs](https://docs.microsoft.com/en-us/power-bi/transform-model/desktop-combine-binaries) 
 
-- Using SQL statements. Do not use the * (wildcard) as you may be importing redundant data
+- When using SQL statements. Do not use the * (wildcard) as you may be importing redundant data
 - Only import the data that you need for the report
-- Better than creating a SQL statement is to create a view in the DB and let Power query do the query folding
+- Some occasions it is better than creating a SQL statement is to create a view in the DB and let Power query do the query folding
 
 - Connecting to a CosmoDB (Azure)
 - Select connection (Others)
@@ -57,46 +61,40 @@ Azure Doc: [Get Data](https://docs.microsoft.com/en-gb/learn/modules/get-data/)
 	- No scalar Dax functions such as `left()` for calculated columns
 	- Max length of text in columns 32,764
 	- No Built in date hierarchy
-Always get the latest data
-- Dual: 
+	- Always get the latest data
 
-- Mode Change: Is possible to change import to Direct Query but not from Direct Query to Import. 
-- If a import mode is changed to Query mode this is irreversible
+- Import mode change
+	- It Is possible to change import to Direct Query but not from Direct Query to Import. 
+	- If a import mode is changed to Query mode this is irreversible
 
 Analysis Services vs. SQL Server
 
 Similarities
 
 - Authenticate to the server.
-- Pick the cube you want to use.
+- Pick the cube or table you want to use.
 - Select which tables you need.
 
 Differences
 
-- Analysis Services cubes have calculations already in the cube, which will be discussed in more detail later.
-- If you don’t need an entire table, you can query the data directly. 
-- Instead of using Transact-SQL (T-SQL) to query the data,
- like you would in SQL Server, you can use multi-dimensional expressions (MDX) 
- or data analysis expressions (DAX).
+- Analysis Services cubes have calculations already in the cube
+- If you don’t need an entire table, you can query the data directly.
+- Instead of using Transact-SQL (T-SQL) to query the data, like you would in SQL Server, you can use multi-dimensional expressions (MDX) or data analysis expressions (DAX).
 
-- Azure Analysis Services can be connected. 
+- Azure Analysis Services can be connected in
 [Azure Docs](https://docs.microsoft.com/en-us/azure/analysis-services/analysis-services-connect-pbi)
 	- Import or
-	- Connect live : Using the Connect live option helps you keep the data and DAX calculations in their original location, 
-				without having to import them all into Power BI. Azure Analysis Services can have a fast refresh schedule , 
-				which means that when data is refreshed in the service, Power BI reports will immediately be updated, 
-				without the need to initiate a Power BI refresh schedule.
-- Analysis Services Multidimensional can only connect life. It does not import. [Reference Docs](https://docs.microsoft.com/en-us/power-bi/connect-data/desktop-ssas-multidimensional)
+	- Connect live : Using the Connect live option helps you keep the data and DAX calculations in their original location, without having to import them all into Power BI. Azure Analysis Services can have a fast refresh schedule , which means that when data is refreshed in the service, Power BI reports will immediately be updated, without the need to initiate a Power BI refresh schedule.
+- Analysis Services Multidimensional can only connect live. It does not import. [Reference Docs](https://docs.microsoft.com/en-us/power-bi/connect-data/desktop-ssas-multidimensional)
 
 
 - Query folding. 
 	- [Query Folding Docs](https://docs.microsoft.com/en-us/power-bi/guidance/power-query-folding)
 	- [Power Query Folding Docs](https://docs.microsoft.com/en-us/power-query/power-query-folding)
 	- Query folding is the process by which the transformations and edits that you make 
-		in Power Query Editor are simultaneously tracked as native queries, 
-		or simple Select SQL statements.
-	- Whe transformation are done in power query it gets translated in a native query (SQL)
-	- It is possible to many transformations like deleting column or filtering,  GROUP BY a column for example but does not work for
+		in Power Query Editor are simultaneously tracked as native queries, or simple Select SQL statements.
+	- When transformation are done in Power Query it gets translated in a native query (SQL)
+	- It is possible to do many transformations like deleting column or filtering,  GROUP BY a column for example but does not work for
 		- Adding an index column
 		- Merging and appending columns of different tables with two different sources
 		- Changing the data type of a column
@@ -105,11 +103,11 @@ Differences
 - Optimization tips
 	- Process as much data as possible in the original data source
 	- Use native SQL queries.  SP or CTEs
-	- Separate date and time, if bound together
-	
+	- Separate date and time in columns, if bound together
 
 - [Power Query ](https://docs.microsoft.com/en-gb/learn/modules/clean-data-power-bi/2-shape-data)
-	- All steps are recorded 
+	- Popular functionalities
+	- All steps of your transformation are recorded 
 	- Promote headers can use the promote header in the Home Ribbon session or click the table icon next to first column (use first row as header)
 	- Can remove top N rows
 	- Can delete columns by selecting the ones you need or you can select the ones you want to keep then delete the others
@@ -128,7 +126,7 @@ Differences
 	- Remove prefixes and suffixes
 	
 - Evaluate and change data types
-	- Can be changed in power query and in power bi desktop reporting view by using columns tools
+	- Can be changed in power query or in PBI desktop reporting view by using columns tools
 	- Data types in [PBI]https://docs.microsoft.com/en-us/power-bi/connect-data/desktop-data-types
 	
 - Combine multiple tables
@@ -144,8 +142,8 @@ Differences
 		- Select File > Options and settings > Data source settings
 		- Select Export PBIDS.
 		- Save file (Rename if you want but it will give you a default name based on your connection name)
-	- The saved file is a text file is a JSON like structure that you actually can edit or create manually if you know the structure
-	- Below an example of connecting to SQL server.
+	- The saved file is a text file. Is looks like a JSON structure that you actually can edit or create manually if you know the structure
+	- Below is an example of connecting to SQL server.
 	```
 	{
 	"version": "0.1",
@@ -172,20 +170,20 @@ Differences
 - Use or create a data flow
 	- [Documentation Create](https://docs.microsoft.com/en-us/power-bi/transform-model/dataflows/dataflows-create)
 	- [Documentation Create and use](https://docs.microsoft.com/en-us/power-query/dataflows/create-use)
-	- A Dataflow in other words is Power Query running in the cloud(PowerBI Service)
+	- A Dataflow in other words is Power Query running in the cloud (PowerBI Service)
 	- A dataflow is a collection of tables that are created and managed in workspaces in the Power BI service. 
 	- Create a DataFlow
 		- To create a dataflow, launch the Power BI service in a browser then select a workspace (dataflows are not available in my-workspace in the Power BI service)
 		- There are a multiple of ways to create or build on top of a new dataflow:
-			- Create a dataflow using define new tables: Connecting to a new source and "creating a table(query) in data flow. E.g. connecting to a SQL database and importing some data into dataflow
+			- **Create a dataflow using define new tables**: Connecting to a new source and "creating a table(query) in data flow. E.g. connecting to a SQL database and importing some data into dataflow
 			- Create a dataflow using linked tables: Enables you to reference an existing table, defined in another dataflow, in a read-only fashion.
 				- Linked tables are available only with Power BI Premium.
-			- Create a dataflow using a computed table: Creating a dataflow using a computed table allows you to reference a linked table and perform operations on top of it in a write-only fashion. 
+			- **Create a dataflow using a computed table**: Allows you to reference a linked table and perform operations on top of it in a write-only fashion. 
 				- The result is a new table, which is part of the dataflow. To convert a linked table into a computed table, you can either create a new query from a merge operation, or if you want to edit or transform the table, create a reference or duplicate of the table.
-			- Create a dataflow using import/export: Creating a dataflow using import/export lets you import a dataflow from a file. This is useful if you want to save a dataflow copy offline, or move a dataflow from one workspace to another.
+			- **Create a dataflow using import/export**: Creating a dataflow using import/export lets you import a dataflow from a file. This is useful if you want to save a dataflow copy offline, or move a dataflow from one workspace to another.
 		- Configuring a Dataflow
 			- You can configure Dataflow schedule refresh and define how often you want it refreshed
-			- In the service find the dataflow and select the More menu (the ellipsis) and select Settings.
+			- In the PBI service, find the dataflow and select the More menu (the ellipsis) and select Settings.
 			- In configuration you can set
 				- Gateway Connection: What gateway dataflow connects to
 				- Data Source Credentials: Data source credential dataflow connects to
@@ -214,7 +212,7 @@ Differences
 			- Open Power Apps, select the environment you're going to connect to, select Settings in the top-right corner, and then select Session details.
 			- The URL will be in the format: https://yourenvironmentid.crm.dynamics.com/. Make sure you remove https:// and the trailing / from the URL before pasting it to connect to your environment.
 	- In Power BI to connect to Dataverse just select the dataverse connector and enter the environment URL as described above
-	- Select the tables data you want to import and import
+	- Select the tables data you want to import
 
 - Connect to a dataset using the XMLA endpoint
 	- [Documentation](https://docs.microsoft.com/en-us/power-bi/admin/service-premium-connect-tools)
@@ -248,23 +246,26 @@ Differences
 
 ### Profile the data 
 
-- Distribution: Histogram of count of distinct and unique values
-- Quality: check empty, validity percentage and errors
-- Profile: Column in depth statistics
+- Profiling data feature works in Power Query
+- Make sure that the boxes are ticked in the ribbon View
+	- Column
+		- Distribution: Histogram of count of distinct and unique values
+		- Quality: check empty, validity percentage and errors
+		- Profile: Column in depth statistics
 
-	- Profiling data is about studying the nuances of the data
-		- Anomalies
-		- Structure
-		- Statistics
-		- Row Count
-		- Distribution
-	- Examine data structures
-		- Before profile the data examine the model in power bi and the table relationships
-		- Find data anomalies and data statistics
-	- Select the View ribbon
-		- Column Quality: Show % of errors, empty and valid
-		- Column Profile: Detail statistics about the column
-		- Column Distribution: Histogram chart of value distribution if continuos or classes (distinct)
+- Profiling data is about studying the nuances of the data
+	- Anomalies
+	- Structure
+	- Statistics
+	- Row Count
+	- Distribution
+- Examine data structures
+	- Before profile the data examine the model in power bi and the table relationships
+	- Find data anomalies and data statistics
+- Select the View ribbon
+	- Column Quality: Show % of errors, empty and valid
+	- Column Profile: Detail statistics about the column
+	- Column Distribution: Histogram chart of value distribution if continuos or classes (distinct)
 	- Column quality and Column distribution are shown in the graphs above the columns of data
 	- Columns profile statistics
 		- Count
@@ -277,46 +278,46 @@ Differences
 		- Max
 		- Value Distribution (Bart Chart): important because it identifies outliers.
 
-
 - Use editor to modify M code
 		- Click in Power Query - Advanced Editor 
+	- M Language formula [reference](https://docs.microsoft.com/en-us/powerquery-m/)
 
 - Use Parameters
-	- In power query click Manage Parameters in the Home Ribbon
+	- In Power Query click Manage Parameters in the Home Ribbon
 	- This allow to load different data in the report depending on the parameter
 	- Steps
 		- Write a SQL query with a parameter &parameter
-		- Needs to be type text and configured in the M code outside the query string: https://docs.microsoft.com/en-gb/learn/modules/manage-datasets-power-bi/2-report-parameters
+		- Needs to be **type text** and configured in the M code outside the query string: [source](https://docs.microsoft.com/en-gb/learn/modules/manage-datasets-power-bi/2-report-parameters)
 
 
 ### Clean, transform, and load the data
 
 [Clean data learning](https://docs.microsoft.com/en-gb/learn/modules/clean-data-power-bi/)
 
-- Power Query Editor
-	- Query pane (left)
-	- Query displays in the middle of the screen and
+- Power Query Editor layout
+	- Queries pane (left)
+	- Query (grid) displays in the middle of the screen and
 	- Query setting on the right
-	- All steps that you take to shape your data are recorded
+		- All steps that you take to shape your data are recorded
 
 - Identify column headers and names 
-	- Make sure columns are in the right place
+	- Make sure columns are in the right order
 	- You can promote headers or delete rows to make headers are column names
 	- Promote header by clicking on the top left of the grid view and select "use first row as header"
-	- Rename Columns
-		- Look for spelling error and fix
-		- Give meaningful names for the end user. Avoid codes, shortened, underscores and acronyms 
-	- Remove top rows if empty
-	- Remove columns
-		- Help you to focus on the data that you need and help improve the overall performance of your Power BI Desktop datasets and reports
-		- Can select what you want to keep and "remove other" or select what you want to remove and keep the rest
-	- Unpivot columns 
-		- often use it when importing data from Excel
-		- It transform column headers in rows
-		- It helps to shape the data to make aggregation and measures more efficient
-	- Pivot columns 
-		- Inverse o unpivot
-		- You can aggregate flat data
+- Rename Columns
+	- Look for spelling error and fix
+	- Give meaningful names for the end user. Avoid codes, shortened, underscores and acronyms 
+- Remove top rows if empty
+- Remove columns
+	- Help you to focus on the data that you need and help improve the overall performance of your Power BI Desktop datasets and reports
+	- Can select what you want to keep and "remove other" or select what you want to remove and keep the rest
+- Unpivot columns 
+	- often use it when importing data from Excel
+	- It transform column headers in rows
+	- It helps to shape the data to make aggregation and measures more efficient
+- Pivot columns 
+	- Inverse o unpivot
+	- You can aggregate flat data
 
 - Simplify the data structure
 	- Rename a query 
@@ -358,7 +359,7 @@ Differences
 	- Appending 
 		- When appending you will add rows to a query or table
 		- Home tab in the ribbon is the location of the transformation
-		- You can append as new or append to any existing table (options)
+		- You can append as new or append to any existing table (select options)
 	- Merging 
 		- When merging you will be adding columns to a query or table
 		- Combining the data from multiple tables into one based on a column that is common between the tables.
@@ -368,7 +369,7 @@ Differences
 			- Inner
 
 - Use Advanced Editor to modify M code
-	- Each cleaning step that you made was likely created by using the graphical interface, but Power Query uses the M language behind the scenes.
+	- Each transformation step that you made using the graphical interface, it is recorded in the M language behind the scenes.
 	- Power Query Advanced Editor is where all the M code was written
 	- You will rarely need to write M code, but it can still prove useful
 
@@ -381,13 +382,13 @@ Differences
 - Configure data loading
 	- You can configure for each query by right click the query
 		- Enable Load. If unchecked will not bring table to data model in PBI desktop
-		- Include in report refresh (it will not refresh in PBI desktop. In service alwyas refresh)
+		- Include in report refresh (it will not refresh in PBI desktop. In service always refresh)
 
 - Resolve data import errors
 	- Import Error can be various it comes down to troubleshooting
-	- Where there is an error in import PBI will create a folder and a table query so you can analysise the errors
+	- Where there is an error in import PBI will create a folder and a table query so you can analyse the errors
 	- Once you fix the error you can then delete the folder and queries with errors.
-	- Usually are related to
+	- Usually errors are related to
 		- Data types and mixed types
 		- Missing a driver to connect to a source
 		- Credentials expired
@@ -400,7 +401,7 @@ Differences
 
 - Languages that can be used in PBI. [source](https://community.powerbi.com/t5/Community-Blog/The-Languages-of-Power-BI/ba-p/69104#:~:text=Python%20can%20also%20be%20used,More%20%7C%20Other%20%7C%20Python%20Script.)
 	- Power BI integrates a number of different data languages including DAX, "M", SQL, MDX and R. 
-	- Depending on what you want to do and where one of those languages can be use in PBI
+	- Depending on what you want to do and where in PBI one of those languages can be used.
 	
 ## Model the Data (25-30%)
 
@@ -409,9 +410,9 @@ Differences
 [Azure learning](https://docs.microsoft.com/en-gb/learn/modules/design-model-power-bi)
 
 - The best practice for a data model in Power BI is a Star Schema
-- The reason is that a Star Schema optimise performance and make dax code simpler to filter on dimension
+- The reason is that a Star Schema optimise performance and make DAX (Data Analysis Expression) code simpler to filter on dimension
 - The granularity of the model need be at the level it is required as it can increase cardinality and reduce performance
-- A data model need to as much as possible de-normalize tom reduce the number of tables and follow a Start Schema and avoid snow flake patterns
+- A data model need to as much as possible de-normalize to reduce the number of tables and follow a Start Schema and avoid snow flake patterns
 - Power BI allows relationships to be built from tables with different data sources, a powerful function that enables you to pull one table from Microsoft Excel and another from a relational database
 
 - Star Schema
@@ -711,26 +712,70 @@ Differences
 	- Example `SUMX(Sales, Sales[Quantity] * Sales[UnitPrice] )` Will calculated quantity times price row by row in the Sales table and sum all rows into a scalar value.
 
 - Replace numeric columns with measures
-	- Instead of using an implicit measure using a count of values in a column it is better to just to a count measure then the result will be more efficient in terms of performance and storage
+	- A calculated column should be used sparingly as it increase the storage usage and is calculated every time data is loaded. 
+	- Calculated columns are materialized in the .pbix Power BI file extension, meaning that each time you add a calculated column, you are increasing the size of the overall file. Having too many calculated columns will slow performance and will cause you to reach the maximum Power BI data size sooner
+	- Calculated columns are useful, but you are required to operate row by row
+	- If the calculated column is numeric and the aim is to use it for aggregation it is preferable to use a iterator function and achieve the same result with a measure rather than a column
 
 - Use basic statistical functions to enhance data
 	- There are several built in [statistical functions](https://docs.microsoft.com/en-us/dax/statistical-functions-dax) in DAX to analyse data
 
-- Semi Additive Measures
-	- [Learning](https://docs.microsoft.com/en-gb/learn/modules/create-measures-dax-power-bi/5-semi-additive-measures)
-
 - Calculate to Manipulate Filters
 	- [Learning](https://docs.microsoft.com/en-gb/learn/modules/dax-power-bi-modify-filter/)
+	- Understand context
+		- When a measure is created if calculates the result based on the context it is evaluated.
+		- Power BI is dynamic and depending on the filter although the calculation is the same the result will be different.
+	- The Calculate function is "THE" function in DAX because it is the one that allow you to manipulate the context that is been evaluated, giving lots of flexibility to achieve the calculation of advanced and customized measure to complex scenarios.
+	- For example the measure
+	`Sales = Sum(Sales[amount])` will return total sales if no filter applied.
+	- If a year filter is applied the measure will recalculate based on the context.
+	- However the formula `Sales 2015 = Calculate(Sales, Date[Year] = '2015')` will always return the sales only for year 2015 no matter what filter you apply because calculate override the filter context.
+	- Calculate is a very powerful and the understanding can be difficult but the way calculate words is.
+	`Calculate(<Expression>, <filter1>, <filtern>)` 
+	- It start with an expression then filters are applied to indicate the context the expression is evaluated. The filter are tables that calculate evaluate the expressions.
+
+
+- Semi Additive Measures
+	- [Learning](https://docs.microsoft.com/en-gb/learn/modules/create-measures-dax-power-bi/5-semi-additive-measures)
+	- In occasions the behavior you want having a sum does not help.
+	- One example is when you are trying to calculate an account balance by a period of time. It would be incorrect to sum a balance month over month
+	- In this scenario you can use calculate and to manipulate the filter using another function `LASTDATE` to pick only the last date of the context.
+	```
+	Last Inventory Count = 
+	CALCULATE (
+    SUM ( 'Warehouse'[Inventory Count] ),
+    LASTDATE ( 'Date'[Date] ))
+	```
 
 - Implement Time Intelligence using DAX
 	- [Learning](https://docs.microsoft.com/en-gb/learn/modules/dax-power-bi-time-intelligence/)
-
-```python 
-TODO
- use CALCULATE to manipulate filters
- implement Time Intelligence using DAX
- create semi-additive measures
-```
+	- To implement time intelligence is when an analysis involve calculations that involve time for example
+		- Year to Date
+		- Last Year
+		- Lat 3 months
+		- Last year vs the year before
+		- etc
+	- Dax offer several functions and also a combination of function to solve basically any problem involving time intelligence.
+	- To facilitate time intelligence it is required that your model have a date table.
+	- There are some built in functions that makes life easier when it comes to time intelligence.
+	- Say you want to calculate YTD for a measure
+	```
+			YTD Total Sales = TOTALYTD 
+		( 
+			SUM('Sales OrderDetails'[Total Price]) 
+			, Dates[Date]
+		)
+	``` 
+	- The `Dates` is the date Table and `[date]` is the field with every single date in the calendar.
+	- Say want to calculate Total Sales Previous month
+	```
+	Total Sales Previous Month = CALCULATE
+	(
+		sum('Sales OrderDetails'[Total Price])
+		, PREVIOUSMONTH(Dates[Date])
+	)
+	```
+	- DAX offer [several functions](https://docs.microsoft.com/en-us/dax/time-intelligence-functions-dax) to perform time intelligence to make it simpler you DAX code.
 
 ### Optimize model performance
 
