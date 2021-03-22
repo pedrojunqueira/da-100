@@ -625,15 +625,110 @@ Differences
 
 ### Create measures by using DAX
 
-[Learning Page Documentation](https://docs.microsoft.com/en-gb/learn/paths/dax-power-bi/)
+[Learning Page Documentation](https://docs.microsoft.com/en-gb/learn/paths/dax-power-bi/)	
+
+-	DAX stands for Data Analysis Expression
+	- Similar to Microsoft Excel, DAX is a functional language
+	- There are 3 types of calculations to do in DAX
+		- Calculated Table
+		- Calculated Column
+		- Measures
+		- Define row level security filters
+	- Calculated tables can be useful in various scenarios
+		- Date Tables: To filter and aggregate data 
+		- Role-playing dimension: Have the same table calculation playing different roles. OrderDateTable, ShipDateTable
+		- What if analysis: Use to user select parameter to affect calculations in the model. Say recalculate sales with different exchange rates. Also known as disconnected tables
+	- Calculated Column
+		- The formula written in a column is evaluated for each row and returns a single value
+		- The formula is evaluated when the data model is refreshed. At **refresh time**
+	- Measures
+		- The formula is concerned with achieving summarization over model data
+		- Return a single value
+		- Evaluated at **query time** and their results are never stored in the model
+		- Implicit vs. explicit
+			- Implicit measures are columns that can be summarized by visuals like count, sum, minimum, maximum, and so on. You can identify implicit measures in the Fields pane because they're shown with the sigma symbol (∑).
+			- Explicit are measures per se
+	- Object reference
+		- Tables: 'Table' => quotes
+		- Columns: \[column\] or Table\[column\] => brackets
+		- Measure: \[measure\] => brackets
+	- Variables
+		```python
+		VAR NameVariable = <expression>
+		return
+			NameVariable
+		```
+	- Whitespace
+		- Used to format your formula
+			- Spaces
+			- Carriage Returns
+			- Tabs
+	- Data Types
+		- Whole number
+		- Decimal number
+		- Boolean
+		- Text
+		- Date
+		- Currency
+		- N/A
+	- Functions
+		- Originate from Excel
+		`IF(<logical_test>,<value_if_true>[, <value_if_false>])`
+		- Not Originated Excel
+		`DIVIDE(<numerator>, <denominator> [,<alternateresult>])`
+	- Text concatenation operator
+		`Model Color = Product[Model] & "-" & Product[Color]`
+	- Logical
+		- AND `&&`
+		- OR `||`
+		- IN : works like SQL array shoulr be in `{}`
+		- NOT : Inverts Boolean
+	
+- Row context
+	-  Formula for a calculated column is evaluated for each table row
+- Adding Columns
+	- Three techniques that you can use to add columns to a model table are
+		- Add columns to a view or table (At source if it is a relational database)
+		- Computed columns (M) in Power Query
+		- Calculated columns (DAX) PBI Desktop
+			
+- compound measures
+	`Profit =[Revenue] - [Cost]`
+
+- Measure vs Calculated column
+	- Purpose - Calculated columns extend a table with a new column, while measures define how to summarize model data.
+	- Evaluation - Calculated columns are evaluated by using row context at data refresh time, while measures are evaluated by using filter context at query time. 
+	- Storage - Calculated columns (in Import storage mode tables) store a value for each row in the table, but a measure never stores values in the model.
+	- Visual use - Calculated columns (like any column) can be used to filter, group, or summarize (as an implicit measure), whereas measures are designed to summarize.
+
+-  Iterator functions
+	- Functions what ends with X
+	- SUMX
+	- AVERAGEX
+	- MINX
+	- MAXX
+	- It takes a table as an argument and an expression. It creates a row context for the expression which then is evaluated row by row and then aggregated.
+	- Example `SUMX(Sales, Sales[Quantity] * Sales[UnitPrice] )` Will calculated quantity times price row by row in the Sales table and sum all rows into a scalar value.
+
+- Replace numeric columns with measures
+	- Instead of using an implicit measure using a count of values in a column it is better to just to a count measure then the result will be more efficient in terms of performance and storage
+
+- Use basic statistical functions to enhance data
+	- There are several built in [statistical functions](https://docs.microsoft.com/en-us/dax/statistical-functions-dax) in DAX to analyse data
+
+- Semi Additive Measures
+	- [Learning](https://docs.microsoft.com/en-gb/learn/modules/create-measures-dax-power-bi/5-semi-additive-measures)
+
+- Calculate to Manipulate Filters
+	- [Learning](https://docs.microsoft.com/en-gb/learn/modules/dax-power-bi-modify-filter/)
+
+- Implement Time Intelligence using DAX
+	- [Learning](https://docs.microsoft.com/en-gb/learn/modules/dax-power-bi-time-intelligence/)
 
 ```python 
 TODO
- use DAX to build complex measures
  use CALCULATE to manipulate filters
  implement Time Intelligence using DAX
- replace numeric columns with measures
- use basic statistical functions to enhance data
  create semi-additive measures
 ```
 
