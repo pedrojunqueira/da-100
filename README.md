@@ -1147,29 +1147,30 @@ Differences
 	- Cards
 	- Gauge
 - Alerts can be sent to the notification center or email.
-- More info about alerts (https://docs.microsoft.com/en-us/power-bi/create-reports/service-set-data-alerts)
+- More info about [alerts](https://docs.microsoft.com/en-us/power-bi/create-reports/service-set-data-alerts)
 
 - Alerts can be set on visuals created from streaming datasets that you pin from a report to a dashboard.
-- Alerts can't be set on streaming tiles created directly on the dashboard using Add tile > Custom streaming data.
+- Alerts **can't** be set on streaming tiles created directly on the dashboard using Add tile > Custom streaming data.
 
 - Dashboard has Q&A feature where you can ask questions
 - Q&A uses natural language processing
 
-- It is possible to pin an entire report page to a dashboard 
+- It is possible to pin an entire report page to a dashboard. Although it is not a good idea.
 
 [Azure Docs](https://docs.microsoft.com/en-us/power-bi/create-reports/service-dashboard-pin-live-tile-from-report)
 
 - You can stream data to power bi connections from
-[Azure Docs](https://docs.microsoft.com/en-us/power-bi/connect-data/service-real-time-streaming)
 	- API
 	- Azure Stream Analytics
 	- PubNub
+[Azure Docs](https://docs.microsoft.com/en-us/power-bi/connect-data/service-real-time-streaming)
 	
 There are 3 types of streaming dataset
 - Push
 - Streaming
 - PubNub
 
+- Themes
 - Can set up a theme by clicking in edit. 
 - Can also upload or download a Json Theme to be applied to the dashboard
 
@@ -1225,8 +1226,8 @@ There are 3 types of streaming dataset
 	- On Format click on Edit Iteration
 		- There are 3 options
 			- None: when iterating nothing will happen. Visual stay the same
-			- cross-filtered: Visual will filter what of selected in the other visual when iterating
-			- cross-highlight: Visual will stay the same and highlight what was filtered proportionals
+			- cross-filtered: Visual will filter what of selected in the other visual when interacting
+			- cross-highlight: Visual will stay the same and highlight what was filtered proportionally
 	- hierarchies
 		- When add hierarchy in a visual you will have the ability to drill down
 
@@ -1241,7 +1242,7 @@ You have the option to send fewer queries . This is configured in options > quer
 ### Enhance reports to expose insights
 
 - Add Filters
-	- Filters only are available in Reports NOT Dashboards
+	- Filters only are available in Reports **NOT Dashboards**
 	- Slicers : Can add to report to filter visuals
 		types
 		- Numerical
@@ -1252,10 +1253,10 @@ You have the option to send fewer queries . This is configured in options > quer
 - Visual Drill Down
 	- Works if there is a hierarchy
 
-- Bookmarks is used to save states of the data you want to come back. Can be a filter or unfilter data
+- Bookmarks is used to save states of the data you want to come back. Can be a filter or unfiltered data
 
 - Power Bi visuals allow you to (click ellipsis)
-	- add a commend
+	- add a comment
 	- export data (table or underlying data: depends on sys adm permissions and settings)
 	- Visual table (visualize table of the chart data)
 	- Spotlight (show just selected chart and hiding all other elements
@@ -1315,7 +1316,6 @@ You have the option to send fewer queries . This is configured in options > quer
 	- A slicer does not need to show to sync in a page
 	- Configure in View ribbon in Report View
 
-
 - Explore statistical summary
 	- Statistics show the distribution of your data
 	- Help you identify take ways and outliers
@@ -1339,7 +1339,7 @@ You have the option to send fewer queries . This is configured in options > quer
 	- Returns the top N rows of a specified table based on a criteria such as sales, count of orders and etc
 	- It is possible to sort from bottom to top
 	- Top N with DAX
-		``` Dax
+		``` M
 		Top 10 Products =
 		SUMX ( TOPN ( 10, Product, Product[Product Name], ASC ), [Total Sales] )
 
@@ -1381,7 +1381,6 @@ You have the option to send fewer queries . This is configured in options > quer
 		- Forecasting feature is only available for line chart visuals.
 		- [Limitations](https://docs.microsoft.com/en-us/power-bi/transform-model/desktop-analytics-pane#limitations)
 
-
 ### Perform advanced analysis
 
 [Learning Docs](https://docs.microsoft.com/en-gb/learn/modules/perform-analytics-power-bi/?WT.mc_id=cloudskillschallenge_bc12b5d7-d7ce-4fcd-aa6a-e29ed9d1f358)
@@ -1396,27 +1395,16 @@ You have the option to send fewer queries . This is configured in options > quer
 			- Contains the outliers
 			- Does not contain the outliers
 		- The best way to identify outliers is by using scatter chart
-	- Using DAX to identify outliers
-		```dax
-				Outliers =
-		CALCULATE (
-			[Order Qty],
-			FILTER (
-				VALUES ( Product[Product Name] ),
-				COUNTROWS ( FILTER ( Sales, [Order Qty] >= [Min Qty] ) ) > 0
-			)
-		)
-		```
 		- When you have created a new outlier measure, you can group your products into categories by using the grouping feature described above and below
 	- Apply clustering techniques
-		- allows you to identify a segment (cluster) of data that is similar to each other but dissimilar to the rest of the data.
+		- Allows you to identify a segment (cluster) of data that is similar to each other but dissimilar to the rest of the data.
 		- Create a scatter chart
 			- To apply clustering to your scatter chart, select More options (...) in the upper-right corner of the visual and then select Automatically find clusters.
 			- In the window that pop up define the name and description of cluster and the number of bins you want in your cluster
 
 - Conduct time series analysis
 	- To conduct a time series analysis in Power BI, you need to use a visualization type that is suitable for displaying trends and changes over time, such as a line chart, area chart, or scatter chart.
-	- Microsoft AppSource has an animation custom visual called Play Axis similar to the one that Hans Rosling presentation in 2007
+	- Microsoft AppSource has an animation custom visual called **Play Axis** similar to the one that Hans Rosling presentation in 2007
 
 - Group and bin data for analysis
 	- When you create a visual power BI automatically aggregate data into categories and group according to your data categories
@@ -1453,7 +1441,7 @@ You have the option to send fewer queries . This is configured in options > quer
 				- Support inside Q&A
 
 - Apply AI Insights
-	-  AI Insights feature allows you to connect to a collection of pretrained machine learning models that you can apply to your data to enhance your data preparation efforts.
+	-  AI Insights feature allows you to connect to a collection of pre-trained machine learning models that you can apply to your data to enhance your data preparation efforts.
 	- AI Insight is a Power Query Editor feature
 	- Can be assessed by the home ribbon or the add column ribbon
 	- Will be available for you to choose from: Text Analytics, Vision, and Azure Machine Learning.
@@ -1494,14 +1482,14 @@ You have the option to send fewer queries . This is configured in options > quer
 	-  Scheduled refresh feature in Power BI allows you to define the frequency and time slots to refresh a particular dataset
 	- Saves time as you do not need to do it manually
 	- Need to create a gateway connection first
-	- Can refresh 48 times a day on premium and 8 times on shared capacity
+	- Can refresh **48 times** a day on premium and **8 times** on shared capacity
 	- It is possible to refresh manually as many time as you want and that does not affect the scheduled refresh
 	- After four (4) consecutive failures the scheduled refresh deactivate
 	
 - Configure [incremental refresh settings](https://docs.microsoft.com/en-us/power-bi/admin/service-premium-incremental-refresh)
 	-  allows you to refresh large datasets quickly and as often as you need, without having to reload historical data each time.
 	- Incremental refresh should only be used on data sources and queries that support query folding. (e.g. SQL DB)
-	- RangeStart and RangeEnd values must be the name of the parameters
+	- `RangeStart` and `RangeEnd` values must be the name of the parameters
 	-  Type is set to Date/Time and the Suggested Value is set to Any value.
 	- In power query select the column to filter (date column) and right click and pick option custom filter
 	- In power BI right click in the table and select [incremental refresh](https://docs.microsoft.com/en-us/power-bi/admin/service-premium-incremental-refresh)
@@ -1512,7 +1500,7 @@ You have the option to send fewer queries . This is configured in options > quer
 		in your workspaces, or you might want to restrict the reuse of datasets across your workspaces.
 	- This can be done by endorsing datasets
 	- Power BI provides two ways to endorse your datasets
-		- Promotion: Means data is ready for use and any member of the worspace can do it
+		- Promotion: Means data is ready for use and any member of the workspace can do it
 		- Certification: Certify a promoted dataset as "source of truth" and only can be done by Adm role
 		
 - Troubleshoot [service connectivity](https://docs.microsoft.com/en-us/power-bi/connect-data/refresh-troubleshooting-refresh-scenarios)
@@ -1609,16 +1597,16 @@ Recommend a development life cycle strategy
 - The life cycles can be managed by having a staging area a workspace and production are as productions
 
 - Deployment Pipelines https://docs.microsoft.com/en-us/power-bi/create-reports/deployment-pipelines-best-practices
-If in a premium capacity you can use the Deployment Pipeline which is a premium capacity feature
-It manages content in different environments (Development, Test and Production)
-It increases productivity, Allow Faster Delivery of content, Lower manual human intervention
+- If in a premium capacity you can use the Deployment Pipeline which is a premium capacity feature
+- It manages content in different environments (Development, Test and Production)
+- It increases productivity, Allow Faster Delivery of content, Lower manual human intervention
 
-Troubleshoot data by viewing its lineage
-- Data lineage refers to the path that data takes from the data source to the destination.
-- The Lineage view is only accessible to Admin, Contributor, and Member roles.
-- Artifacts include data sources, datasets and dataflow, reports, and dashboards. 
-- By using the Lineage view feature, you can go through the different datasets in one view and 
-then use the Refresh data button to refresh datasets that you determine as stale.
+- Troubleshoot data by viewing its lineage
+	- Data lineage refers to the path that data takes from the data source to the destination.
+	- The Lineage view is only accessible to Admin, Contributor, and Member roles.
+	- Artifacts include data sources, datasets and dataflow, reports, and dashboards. 
+	- By using the Lineage view feature, you can go through the different datasets in one view and 
+	then use the Refresh data button to refresh datasets that you determine as stale.
 
 Sensitivity labels (https://docs.microsoft.com/en-us/power-bi/admin/service-security-apply-data-sensitivity-labels)
 - Sensitivity labels specify which data can be exported.
@@ -1627,7 +1615,7 @@ Sensitivity labels (https://docs.microsoft.com/en-us/power-bi/admin/service-secu
 	- Free License users can consume reports published when admins and Pro users assign workspaces to a capacity (in a Premium Subscription).
 	- Then free users can consume content without requiring to have Pro licenses. Within those workspaces, free users have elevated permissions.
 
-- All office 365 Global admins and Power Bi admins are automatically capacity admins of both Power Bi premium capacity and Power BI embedded capacity
+- All office 365 Global admins and Power BI admins are automatically capacity admins of both Power Bi premium capacity and Power BI embedded capacity
 
 - Configure PBI Subscription
 	- [Documentation](https://docs.microsoft.com/en-us/power-bi/collaborate-share/service-report-subscribe)
@@ -1641,5 +1629,3 @@ Sensitivity labels (https://docs.microsoft.com/en-us/power-bi/admin/service-secu
 			- Enable email subscriptions for all members of the organization.
 			- Enable specific users to send email subscriptions to external users. See Invite external users to your organization.
 		- Admins can audit subscription activity by analyzing the audit logs data
-
-
