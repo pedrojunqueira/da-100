@@ -420,28 +420,32 @@ Differences
 	- Dimension tables contain the details about the data in fact tables
 
 - Model Relationships
-	- Can be created using the Model View by dragging and dropping
+	- Can be created using the Model View by dragging and dropping or
 	- On the the Ribbon Home > Relationships > Manage Relationships
 
 - Configure table Property Pane
 	- In model view you can configure columns using the Property Pane
+	If Select Column
 	- The following fields
 		- Description
 		- Synonyms (useful for Q&A search)
 		- Display Folder. To organize column in folder groups
 		- Hide/Show toggle
-		- Format Data type
+		- Format 
+		- Data type
 		- Advanced
 			- Sort column
 			- Assign to category
 			- Summarize data
 			- If contain nullable values
 	- To configure multiple columns simultaneously hold control key and select various columns
+	- You can also configure the Table properties. Just select the table
+		- In the advanced you can see the Storage mode
 
 - Create a Common date table there are the methods
 	- Source (e.g. EDW)
 	- DAX
-		- `CALENDAR()` OR `CALENDARAUTO()` Functions
+		- `CALENDAR()` OR `CALENDARAUTO()` Functions to create a base Date column
 		- From a base Date columns can create other calculated columns using DAX functions
 			- `Year = YEAR(Dates[Date])`
 			- `MonthNum = MONTH(Dates[Date])`
@@ -450,10 +454,12 @@ Differences
 			- DAX [date and time functions](https://docs.microsoft.com/en-us/dax/date-and-time-functions-dax) 
 	- Power Query
 		- You can use M-language, the development language that is used to build queries in Power Query
-		- ``` DAX
-			= List.Dates(#date(2011,05,31) // start date
+		- ``` 
+			Source = List.Dates(#date(2011,05,31) // start date
 			, 365*10 // every day for 10 years
 			, #duration(1,0,0,0) // duration of period (Day, Hour, Minute, Second)
+			//convert list to table
+			#"Converted to Table" = Table.FromList(Source, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
 			```
 		- to add columns to your new table to see dates in terms of year, month, week, and day so that you can build a hierarchy in your visual.
 		- Add column and then on the drop down under date select what column you want e.g. year
@@ -471,12 +477,13 @@ Differences
 	- Used for chart of accounts or organizational staff hierarchy
 	- Power BI has a function to flatten parent child hierarchy
 		- `Path = PATH(Employee[Employee ID], Employee[Manager ID])`
+		- Path goes from "bottom" to "top" of hierarchy
 		- The calculated columns above find the path from employee to manager`
 		- The flatten path is divided with a pipe operator `|`
-		- From the flatten it can be split in levels using the function `PATHITEM()`
+		- From the flattened column it can be split in levels using the function `PATHITEM()`
 
 - Role-playing dimensions
-	-  Meaning that the same dimension can be used to filter multiple columns or tables of data
+	- Meaning that the same dimension can be used to filter multiple columns or tables of data
 	- You can filter data differently depending on what information you need to retrieve
 	- This happens when when a a dimension table makes reference to more than one fact table
 		- Example a date dimension has relationship to 2 fact tables (e.g. Orders and Sales)
@@ -490,7 +497,7 @@ Differences
 - Relationships and cardinality
 	- Power BI has the concept of directionality to a relationship
 	- This direction indicates how the filter propagates between tables
-	- The rule is that if propagates from the one to the many side of the relationship
+	- The default rule is that it propagates from the one to the many side of the relationship
 	- Cardinalities can be
 		- One-to-many or Many-to-One (same)
 		- One-to-One: Unique value in both tables. Indicates that there are space to de-normalize the model and a redundant relationship exists
@@ -499,7 +506,7 @@ Differences
 - Cross-filter direction
 	- The direction of a relationship cross-filter can be 
 		- single or 
-			- Only one side filter the other table. In a one-to-Many the one side inly filters
+			- Only one side filter the other table. In a one-to-Many the one side filters the many side
 		- both direction
 			- Both sides can filter the other table
 			- You might have lower performance when using bi-directional cross-filtering with many-to-many relationships.
@@ -513,11 +520,9 @@ Differences
 	- one-to-many: Single or Bidirectional
 
 - Resolve many-to-many relationships
-	- Before relationships with a many-many cardinality became available, the relationship between two tables was defined in Power BI. 
-	- A bridging table needed to be created as a work around (Before the July 2018 release)
+	- Before relationships with a many-many cardinality became available, the relationship between two tables was defined in Power BI by using a bridging table as a work around (Before the July 2018 release)
 	- With the July 2018 version of Power BI Desktop, you can directly relate tables, such as the ones we described earlier, without having to resort to similar workarounds. 
 	- [Documentation reference](https://docs.microsoft.com/en-us/power-bi/transform-model/desktop-many-to-many-relationships)
-
 
 - Create quick measures
 	- There are 3 ways
@@ -530,10 +535,9 @@ Differences
 		- Click ok and the measure will be created and write the DAX for you
 	- This is a good way to learn DAX (maybe not... :) )
 
-
 - Design the data model to meet performance requirements
-	- Throughout my notes here in various sessions I talked about that you can do to optimize model performance
-	- There is [this guide]((https://docs.microsoft.com/en-us/power-bi/guidance/power-bi-optimization)) in the docs which gives some guidelines and link to resources
+	- Throughout my notes I talked about that you can do to optimize model performance. It may be repetitive but this is what is in the sylabus.
+	- [This guide]((https://docs.microsoft.com/en-us/power-bi/guidance/power-bi-optimization)) in the docs gives some guidelines and link to resources
 	- The main takes are
 		- Develop a Star Schema
 		- Import only data you need. E.g. remove unnecessary columns
@@ -553,25 +557,24 @@ Differences
 			- Use Dax Studio
 			- Monitor Premium metrics (only for premium capacity)
 		
-
 ### Develop a data model
 
 [Azure Learning](https://docs.microsoft.com/en-gb/learn/modules/model-data-power-bi/)
 
 - Apply cross-filter direction and security filtering
-	- The default filter is form the one side to the many side
+	- The default filter is from the one side to the many side
 	- Bidirectional cross-filtering enables them to apply filters on both sides of a table relationship
 	- To enable bi-directional filtering
 		- Set Cross filter direction to Both
-		- Select Apply security filter in both directions
+		- Select Apply security filter in both directions then
 			- The selection of security filter is to make sure that RLS apply in both directions
 			- This property only works for certain models and is designed when there is a pattern with dynamic row level security. 
-	- [Bidirection and Security Filtering](https://docs.microsoft.com/en-us/power-bi/transform-model/desktop-bidirectional-filtering)
+	- [Bidirectional and Security Filtering](https://docs.microsoft.com/en-us/power-bi/transform-model/desktop-bidirectional-filtering)
 	- [White Paper](https://download.microsoft.com/download/2/7/8/2782DF95-3E0D-40CD-BFC8-749A2882E109/Bidirectional%20cross-filtering%20in%20Analysis%20Services%202016%20and%20Power%20BI.docx)
 	
 
 - Create Calculated Tables
-	- Can create in Power Query
+	- Can create in Power Query (computed table)
 	- Can create in Power BI using DAX
 
 - create calculated columns
@@ -583,7 +586,7 @@ Differences
 
 - Set up the Q&A feature
 	- [Azure Learning](https://docs.microsoft.com/en-us/power-bi/consumer/end-user-q-and-a)
-	- Use Q&A is a natural language capabilities of PBI that allow you to receive answers in the form of charts and graphs from asking questions
+	- Q&A is a natural language capabilities of PBI that allow you to receive answers in the form of charts and graphs from asking questions
 	- Q&A can be used in
 		- Dashboards in PBI Service
 		- Power BI Mobile at the bottom of Dashboards
@@ -601,7 +604,6 @@ Differences
 			- If you published in PBI Service all questions asked will be there
 			- All red underlines will be terms that PBI does not understand
 			- To fix the term click in fix needed and then teach PBI what the term means in the model
-
 
 - Implementing Row Lever Security
 	- [Azure Learning](https://docs.microsoft.com/en-gb/learn/modules/row-level-security-power-bi/)
@@ -634,11 +636,11 @@ Differences
 		- Calculated Table
 		- Calculated Column
 		- Measures
-		- Define row level security filters
+	- ALSO can use DAX to define row level security filters
 	- Calculated tables can be useful in various scenarios
 		- Date Tables: To filter and aggregate data 
-		- Role-playing dimension: Have the same table calculation playing different roles. OrderDateTable, ShipDateTable
-		- What if analysis: Use to user select parameter to affect calculations in the model. Say recalculate sales with different exchange rates. Also known as disconnected tables
+		- Role-playing dimension: It is when you have the same table calculation playing different roles.    e.g. OrderDateTable, ShipDateTable
+		- What if analysis: Used in a filter to select parameter to affect calculations in the model. Say recalculate sales with different exchange rates. Also known as disconnected tables
 	- Calculated Column
 		- The formula written in a column is evaluated for each row and returns a single value
 		- The formula is evaluated when the data model is refreshed. At **refresh time**
@@ -648,12 +650,12 @@ Differences
 		- Evaluated at **query time** and their results are never stored in the model
 		- Implicit vs. explicit
 			- Implicit measures are columns that can be summarized by visuals like count, sum, minimum, maximum, and so on. You can identify implicit measures in the Fields pane because they're shown with the sigma symbol (∑).
-			- Explicit are measures per se
-	- Object reference
+			- Explicit are measures created using a DAX formula
+	- Object reference syntax
 		- Tables: 'Table' => quotes
-		- Columns: \[column\] or Table\[column\] => brackets
+		- Columns: \[column\] or 'Table'\[column\] => brackets
 		- Measure: \[measure\] => brackets
-	- Variables
+	- Variables syntax
 		```python
 		VAR NameVariable = <expression>
 		return
@@ -672,7 +674,7 @@ Differences
 		- Date
 		- Currency
 		- N/A
-	- Functions
+	- Functions examples in DAX
 		- Originate from Excel
 		`IF(<logical_test>,<value_if_true>[, <value_if_false>])`
 		- Not Originated Excel
@@ -682,7 +684,7 @@ Differences
 	- Logical
 		- AND `&&`
 		- OR `||`
-		- IN : works like SQL array shoulr be in `{}`
+		- IN : works like SQL array should be in `{}`
 		- NOT : Inverts Boolean
 	
 - Row context
@@ -708,38 +710,37 @@ Differences
 	- AVERAGEX
 	- MINX
 	- MAXX
-	- It takes a table as an argument and an expression. It creates a row context for the expression which then is evaluated row by row and then aggregated.
-	- Example `SUMX(Sales, Sales[Quantity] * Sales[UnitPrice] )` Will calculated quantity times price row by row in the Sales table and sum all rows into a scalar value.
+	- It takes a table as an argument and an expression. It creates a row context for the expression which  is evaluated row by row and then the result of the expression of each row is aggregated.
+	- Example `SUMX(Sales, Sales[Quantity] * Sales[UnitPrice] )` Will calculated quantity times price row by row in the Sales table and sum all row results into a total value.
 
 - Replace numeric columns with measures
 	- A calculated column should be used sparingly as it increase the storage usage and is calculated every time data is loaded. 
 	- Calculated columns are materialized in the .pbix Power BI file extension, meaning that each time you add a calculated column, you are increasing the size of the overall file. Having too many calculated columns will slow performance and will cause you to reach the maximum Power BI data size sooner
 	- Calculated columns are useful, but you are required to operate row by row
-	- If the calculated column is numeric and the aim is to use it for aggregation it is preferable to use a iterator function and achieve the same result with a measure rather than a column
+	- If the calculated column is numeric and the aim is to use it for aggregation os an implicit measure it is preferable to use a iterator function and achieve the same result with a measure rather than a column
 
 - Use basic statistical functions to enhance data
 	- There are several built in [statistical functions](https://docs.microsoft.com/en-us/dax/statistical-functions-dax) in DAX to analyse data
 
 - Calculate to Manipulate Filters
 	- [Learning](https://docs.microsoft.com/en-gb/learn/modules/dax-power-bi-modify-filter/)
-	- Understand context
-		- When a measure is created if calculates the result based on the context it is evaluated.
-		- Power BI is dynamic and depending on the filter although the calculation is the same the result will be different.
-	- The Calculate function is "THE" function in DAX because it is the one that allow you to manipulate the context that is been evaluated, giving lots of flexibility to achieve the calculation of advanced and customized measure to complex scenarios.
+	- Understand filter context
+		- When a measure is created it calculates the result based on the filter context it is evaluated.
+		- Power BI reporting is dynamic and depending on the filter context the result of a calculation is different although the formula is the same.
+	- The `CALCULATE` function is "THE" function in DAX because it is the one that allow you to manipulate the context that is been evaluated, giving lots of flexibility to achieve the calculation of advanced and customized measure to complex scenarios.
 	- For example the measure
 	`Sales = Sum(Sales[amount])` will return total sales if no filter applied.
-	- If a year filter is applied the measure will recalculate based on the context.
+	- If a year filter is applied the measure will recalculate based on the context, having a different value for each year
 	- However the formula `Sales 2015 = Calculate(Sales, Date[Year] = '2015')` will always return the sales only for year 2015 no matter what filter you apply because calculate override the filter context.
 	- Calculate is a very powerful and the understanding can be difficult but the way calculate words is.
-	`Calculate(<Expression>, <filter1>, <filtern>)` 
-	- It start with an expression then filters are applied to indicate the context the expression is evaluated. The filter are tables that calculate evaluate the expressions.
-
+		`CALCULATE(<Expression>, <filter1>, <filtern>)` 
+		- It start with an expression then filters are applied to indicate the context the expression is evaluated. The filter are tables that calculate evaluate the expressions.
 
 - Semi Additive Measures
 	- [Learning](https://docs.microsoft.com/en-gb/learn/modules/create-measures-dax-power-bi/5-semi-additive-measures)
 	- In occasions the behavior you want having a sum does not help.
-	- One example is when you are trying to calculate an account balance by a period of time. It would be incorrect to sum a balance month over month
-	- In this scenario you can use calculate and to manipulate the filter using another function `LASTDATE` to pick only the last date of the context.
+	- One example is when you are trying to `CALCULATE` an account balance by a period of time. It would be incorrect to sum a balance month over month
+	- In this scenario you can use `CALCULATE` and to manipulate the filter using another function `LASTDATE` to pick only the last date of the context.
 	```
 	Last Inventory Count = 
 	CALCULATE (
@@ -749,15 +750,15 @@ Differences
 
 - Implement Time Intelligence using DAX
 	- [Learning](https://docs.microsoft.com/en-gb/learn/modules/dax-power-bi-time-intelligence/)
-	- To implement time intelligence is when an analysis involve calculations that involve time for example
+	- To implement time intelligence is when an analysis involve calculations with time for example
 		- Year to Date
 		- Last Year
 		- Lat 3 months
 		- Last year vs the year before
 		- etc
-	- Dax offer several functions and also a combination of function to solve basically any problem involving time intelligence.
+	- DAX offer several functions and also a combination of function to solve basically any problem involving time intelligence.
 	- To facilitate time intelligence it is required that your model have a date table.
-	- There are some built in functions that makes life easier when it comes to time intelligence.
+	- For example there are some built in functions that makes life easier when it comes to time intelligence.
 	- Say you want to calculate YTD for a measure
 	```
 			YTD Total Sales = TOTALYTD 
@@ -782,7 +783,7 @@ Differences
 [Azure Learning](https://docs.microsoft.com/en-gb/learn/modules/optimize-model-power-bi/1-introduction)
 
 - Performance optimization
-	- It involves making changing in the data and model to run more efficiently
+	- It involves making changes in the data and model to run more efficiently
 	- As a data analyst, you will spend approximately 90 percent of your time working with your data
 	- Poor performance is related to a bad data model or bad dax code
 		- Ensuring that the correct data types are used
@@ -808,9 +809,9 @@ Differences
 		- Consider the number of visuals on the report page; less visuals means better performance
 		- Consider the number of fields in each visual
 	- DAX QUery
-		- There are more efficient way to right dax to improve performance
+		- There are more efficient way to right DAX to improve performance
 	- Data Model
-		- Relationships can be costly. For example snow flake reduce performance
+		- Relationships can be costly. For example Snow Flake reduce performance
 		- Columns: Do not import unnecessary columns
 		- Unnecessary rows: remove empty rows
 		- Data Type: Date and Time columns is costly. Consider splitting them or remove time if do not need it
@@ -848,7 +849,7 @@ Differences
 - Reduce cardinality
 	- Cardinality is a term that is used to describe the uniqueness of the values in a column.
 	- Use data profiler in Power Query to analyse column distribution and unique values
-	- Lots of repeated values indicated low cardinality. A GOOD THING.
+	- Lots of repeated values indicated low cardinality. Low cardinality in this case is A GOOD THING.
 
 - Improve performance by reducing cardinality levels
 	- Power BI Desktop offers different techniques that you can use to help reduce the data that is loaded into data models, such as summarization.
@@ -877,14 +878,14 @@ Differences
 
 - Group by and summarize
 	- The most effective technique to reduce a model size is to load pre-summarized data
-	- For example from daily to moth aggregation of sales data
+	- For example from daily to month aggregation of sales data
 
 - Switch to Mixed mode
 	- In Power BI Desktop, a Mixed mode design produces a Composite model
 	- it allows you to determine storage mode for each table
-		- Recommendation
-		- Large Fact Table to Direct Query
-		- Summarized Data: Import Mode
+		- Recommendation o what mode to use
+			- Large Fact Table to Direct Query
+			- Summarized Data: Import Mode
 
 - Implications of using DirectQuery
 	- It is suitable in cases where data changes frequently and near real-time reporting is required.
@@ -900,7 +901,7 @@ Differences
 - Limitations Direct Query
 	- Performance: Depend on performance of underlying source
 	- Security: Be aware that if multiple sources are imported understand how data can move between data sources and the associated security implications
-	- Data Transformation: Within Power Query if you connect to a OLAP source no transformation can be performed so any transformation need to be do in the source.
+	- Data Transformation: Within Power Query if you connect to a OLAP source no transformation can be performed so any transformation need to be done in the source.
 	- Modelling: Some modelling capability are not available
 	- Reporting: All reporting capability is offered but when published in the PBI service the quick insight feature are not supported for DirectQuery sources.
 
@@ -911,7 +912,7 @@ Differences
 		- help you reduce and maintain the size of your model.
 		- anticipate your data model growing in size in the future and acting proactively
 	- Creating aggregations
-		- Decide the grain or what level will aggregate: Month, Category etc`
+		- Decide the grain or what level will aggregate: Month, Category etc
 		- Where you can create aggregation
 			- Source if you have access
 			- Power Query after import : Use the Group By tool
@@ -920,12 +921,11 @@ Differences
 		- Open by right clicking any field and then "Manage Aggregation" in the detailed table
 		- Reference the column and aggregation
 		- [Azure Docs](https://docs.microsoft.com/en-us/power-bi/transform-model/desktop-aggregations)
-		- aggregation tables are hidden from Report view.
+		- Aggregation tables are hidden from Report view.
 		- All Power BI Import and non-multidimensional DirectQuery data sources can work with aggregations.
 		- Set the storage mode of an aggregated table to Import to speed up queries
 		- To work correctly for aggregations, RLS expressions should filter both the aggregation table and the detail table. (RLS- Role Level Security)
-		- Once the aggregation is set up the detailed table performance will improve and load faster as it will
-			use the aggregation from the aggregation
+		- Once the aggregation is set up the detailed table performance will improve and load faster as it will use the aggregation from the aggregation table
 
 ## Visualize the Data (20-25%)
 
@@ -935,7 +935,7 @@ Differences
 
 - Add visualization items to reports
 	- Power BI come with a range out of the box visuals that can be selected form the visualization pane
-		- To add more visuals click on the ellipses and can chose from Marketplace or Upload a file
+		- To add more visuals click on the ellipses and you can chose from Marketplace or Upload from a file
 	- Table and Matrix
 		- Are grid like visualizations
 		- Table is simpler and summarize measures in values (measure) by a chosen dimension (column)
@@ -946,7 +946,8 @@ Differences
 	- Bar and Column 
 		- Can be clustered or stacked
 		- Represent groups and classes
-		- Axis, Legend, Values and tooltip are options
+		- Options:
+			- Axis, Legend, Values and tooltip
 	- Line and Area chart
 		- Present Trend over time
 		- Options
@@ -998,7 +999,7 @@ Differences
 	- Q&A visualization
 		- The Q&A visualization allows you to ask natural language questions and get answers in the form of a visual
 		- Insert question in the box or use the pre defined selections
-		- Click in turn result into standard visual 
+		- Click in turn result into standard visual to make a standard chart
 
 - Format and configure visualizations
 	- Select the Format button (paint roller icon) to display the Format pane
@@ -1029,9 +1030,9 @@ Differences
 
 - Import a custom visual
 	- In addition to the out-of-the-box visualizations in Power BI Desktop, hundreds of other developers have created a multitude of visuals for you to choose from.
-	-  Are created by Microsoft and Microsoft partners
+	- Are created by Microsoft and Microsoft partners
 	- Some of these custom visuals are certified and some are not
-	- The certified status means that the visual meets the Microsoft Power BI team code requirements
+	- The certified status means that the visual meets the Microsoft Power BI team code requirements were met
 	- An uncertified visual is not necessarily unsafe to use
 	- The custom visual software development kit (SDK), which is an open-source tool based on NodeJS (JavaScript programming language)
 	- To get a custom visual click in the ellipses (...) "Get more visuals"
@@ -1056,7 +1057,7 @@ Differences
 		- No prerequisites exist for creating a Python visual, so you can start right away in Power BI Desktop by selecting the Python visual icon in the Visualizations pane
 		- To create a visual the process is the same as describe above for R
 
-	- Python and R visuals do not interact and are not dynamic and the out of the box chart in PBI
+	- Python and R visuals do not interact and are not dynamic like the out of the box chart in PBI
 	- Python packages supported in PBI [service](https://docs.microsoft.com/en-us/power-bi/connect-data/service-python-packages-support)
 		- matplotlib
 		- numpy
