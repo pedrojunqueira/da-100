@@ -1,0 +1,224 @@
+Dax as a query language
+
+Evaluate syntax
+
+The only mandatory element that works with evaluate is the table name and any calculated table expression following evaluate to produce a return
+
+EVALUATE
+Filter ( 'Product', 'Product'[Color] = "red" )
+
+Filter evaluate for every row in a row context
+
+CALCULATETABLE is identical to CALCULATE function but instead returning a scalar value it returns a table
+
+EVALUATE
+CALCULATETABLE ( 'Product', 'Product'[Color] = "red" )
+
+EVALUATE
+CALCULATETABLE (
+    FILTER (
+        ALL ( 'Product' ),
+        'Product'[Color] = "red"
+    )
+)
+
+It is more DAX friendly to prepare the filter context then execute the table rather than involking an expression many time 
+for many rows that have the same color
+
+There are some instances that you cannot use CALCULATETABLE and you have to use FILTER
+
+EVALUATE
+FILTER(
+     'Product' ,[Sales Amount] > 1000
+        
+    )
+
+in this case CALCULATETABLE would not work because you need to return a table and the expression [Sales Amount] > 1000 is not a table.
+Using filter you can iterate this expression in a row context
+
+Order of execution 
+
+If you have a nested FILTER function the inner table is executed first.
+
+EVALUATE
+FILTER (
+    FILTER (
+        'Product',
+        [Sales Amount] > 1000
+    ),
+    [Margin] > 10
+)
+
+With CALCULATETABLE is a bit different
+
+CALCULATETABLE has the ability to modify the filter context before the expression is evaluated
+
+EVALUATE
+CALCULATETABLE (
+    CALCULATETABLE (
+        'Product',
+        ALL ( 'Product'[Color] )
+    ),
+    'Product'[Color] = "red"
+)
+
+This will return all colors for example
+
+Whenever you have a filter over an existing column, use CALCULATETABLE. Whenever you have to filter by a result of a measure executed through a 
+context transition then you have to use filter. Using FILTER instead of CALCULATETABLE in the same scenario will work but it will be less efficient.
+
+Select column
+
+SELECTCOLUMNS and ADDCOLUMNS
+
+SELECTCOLUMNS just select columns of a table and return all rows of the selected columns + add any other column with an expression.
+
+EVALUATE
+SELECTCOLUMNS (
+    'Product',
+    "Category", RELATED ( 'Product Category'[Category] ),
+    "Color", 'Product'[Color],
+    "Name", 'Product'[Product Name],
+    "Sales Amount", [Sales Amount]
+)
+
+The row context is applied for the whole table no matter how many columns you select
+
+ADDCOLUMN will return all columns of a table plus other columns you want 
+
+EVALUATE
+ADDCOLUMNS (
+    'Product Category',
+    "sales amount", [Sales Amount]
+)
+
+When used ADDCOLUMN with SELECTCOLUMNS is a good way to create a temporary table with SELECTCOLUMNS with only the column combination
+you desire to create a row context. Say you want to only have sales for color 
+
+EVALUATE
+ADDCOLUMNS (
+    SELECTCOLUMNS (
+        'Product',
+        "Color", 'Product'[Color],
+        "Product Amt", [Sales Amount]
+    ),
+    "Product Color Amt", [Sales Amount]
+)
+
+On "Product Amt" will have the row context inclusing all columns no matter which column you selected. However the "Product Color Amt" will have only the row context
+of the columns you selected in SELECTCOLUMNS ie "Color"
+
+SUMMARIZE
+
+You can start from an initial table and add columns from the initial table and any other table that is related to it
+It then will "Select distinct" all valid combinations of the columns.
+You can also add a measure to be evaluated in the grouped by columns but it is not recommended due to performance issues and 
+there are other more efficient ways to do it.
+
+EVALUATE
+SUMMARIZE(Sales,
+		Sales[ProductKey],
+		'Product Category'[Category],
+		'Product'[Color],
+		"sales ammount", [Sales Amount])
+
+A better way to do this is to wrap in an ADDCOLUMNS. It is safer and it is better performance
+
+EVALUATE
+ADDCOLUMNS (
+    SUMMARIZE (
+        Sales,
+        Sales[ProductKey],
+        'Product Category'[Category],
+        'Product'[Color]
+    ),
+    "sales ammount", [Sales Amount]
+	
+)
+
+
+SUMMARIZECOLUMNS work similar do SUMMARIZE but you do not need to specify an initial table to start
+Just add columns mix and match as it is done in summarize.
+
+SUMMARIZECOLUMNS does not support context transition in a measure.
+
+SUMMARIZECOLUMNS is very usefull if writing reports in reporting services
+
+CROSSJOIN does the catesian product of two columns. It is usefull to create totals with all possible combinations if wante to have blank or zeros for combination
+without records in the facr table.
+
+TOPN is a functon that return the topn rows of a table based on a certain expression provided.
+
+TOPN is Often used with GENERATE which is a way to iterate the result of TOPN is a list of values.
+
+EVALUATE
+GENERATE (
+    VALUES ( Customer[Gender] ),
+    TOPN (
+        2,
+        ADDCOLUMNS (
+            VALUES ( 'Product'[Product Name] ),
+            "sales", [Sales Amount]
+        ),
+        [Sales Amount]
+    )
+)
+
+It is the same as implementing OUTER APPLY in SQL
+
+
+There are other function to just display a single measure like
+
+
+EVALUATE 
+ROW("sales" ,[Sales Amount])
+
+Or you can just create a anonymous table. Then you do not control the same of the columns
+
+EVALUATE 
+{[Sales Amount]}
+
+To create a useless not dynamic table there is the DATATABLE function where you can control even the data type.
+
+EVALUATE
+DATATABLE(
+"Name", STRING,
+"AGE", CURRENCY,
+
+{
+   {"Pedro", 44},
+   {"Elena", 38}
+})
+
+Table relationship.
+
+Every relationship in a table keeps when you evaluate a query in DAX. Even if you create a temporary table with a CROSSJOIN. However you need to be
+carefull when using SELECTCOLUMNS because you can break the relationship if you add an expression to the column as in the example below.
+
+DOES NOT break the relationship or data lineage
+
+EVALUATE
+CALCULATETABLE (
+    ADDCOLUMNS (
+        SELECTCOLUMNS (
+            'Product',
+            "Product Name", Product[Product Name] 
+        ),
+        "Sales Amount", [Sales Amount]
+    ),
+    'Product'[Color] = "Red"
+)
+
+BREAKS the relationship because an empty string "" was concatenated witht the Product[Product Name] column.
+
+EVALUATE
+CALCULATETABLE (
+    ADDCOLUMNS (
+        SELECTCOLUMNS (
+            'Product',
+            "Product Name", Product[Product Name] & ""
+        ),
+        "Sales Amount", [Sales Amount]
+    ),
+    'Product'[Color] = "Red"
+)

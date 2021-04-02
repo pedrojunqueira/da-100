@@ -582,7 +582,11 @@ Differences
 	- Can create in Power BI using DAX
 
 - Assume referential integrity 
+	- When connecting to a data source using DirectQuery, you can use the Assume Referential Integrity selection to enable running more efficient queries against your data source
 	- When creating relationships It enables queries on the data source to use INNER JOIN rather than OUTER JOIN which improves query efficiency 
+	- Requirements
+		- Data in the From column in the relationship is never Null or blank
+		- For each value in the From column, there is a corresponding value in the To column
 
 - Set up the Q&A feature
 	- [Azure Learning](https://docs.microsoft.com/en-us/power-bi/consumer/end-user-q-and-a)
@@ -1474,7 +1478,7 @@ You have the option to send fewer queries . This is configured in options > quer
 	- The on premisses gateway can be in two modes
 		- Personal : Installed in the local machine and used by only 1 user
 		- Organizational: Installed in the same server where the data source is and can be used to multiple users in the organization
-	- The gateway is a mean of confecting the power bi service (cloud) to on premisses sources
+	- The gateway is a mean of connecting the power bi service (cloud) to on premisses sources
 	- It allow save traffic of credentials over the internet
 	- It allows for scheduled refresh of the power bi service to get data from on premisses sources
 		
@@ -1559,10 +1563,10 @@ You have the option to send fewer queries . This is configured in options > quer
 		- Like If you're planning to use XMLA endpoint based tools for dataset write operations
 		- Then be sure to enable the setting, even for datasets that you wouldn't necessarily characterize as a large dataset
 		- When enabled, the large dataset storage format can improve XMLA write operations performance.
-		- This allow the use open source tools like [ALM toolkit]https://www.sqlbi.com/tools/alm-toolkit/, which is the same tool as [BISM Normalizer](https://www.sqlbi.com/tools/bism-normalizer/) for Analysis Services.
+		- This allow the use open source tools like [ALM toolkit](https://www.sqlbi.com/tools/alm-toolkit/), which is the same tool as [BISM Normalizer](https://www.sqlbi.com/tools/bism-normalizer/) for Analysis Services.
 			- Such tools allow you to connect to the model in the service and make updates of only metadata schema in a very granular way and compare schema changes.
 			- This allow to change your model without having to load the full model and data that you imported to PBI desktop.
-	- TO enables
+	- TO enable
 		- If your dataset will become larger and progressively consume more memory, be sure to configure Incremental refresh.
 		- Publish the model as a dataset to the service.
 		- In the service > dataset > Settings, expand Large dataset storage format, click the slider to On, and then click Apply.
@@ -1596,7 +1600,7 @@ Monitor Usage Performance
 Recommend a development life cycle strategy
 - The life cycles can be managed by having a staging area a workspace and production are as productions
 
-- Deployment Pipelines https://docs.microsoft.com/en-us/power-bi/create-reports/deployment-pipelines-best-practices
+- [Deployment Pipelines](https://docs.microsoft.com/en-us/power-bi/create-reports/deployment-pipelines-best-practices)
 - If in a premium capacity you can use the Deployment Pipeline which is a premium capacity feature
 - It manages content in different environments (Development, Test and Production)
 - It increases productivity, Allow Faster Delivery of content, Lower manual human intervention
@@ -1608,7 +1612,7 @@ Recommend a development life cycle strategy
 	- By using the Lineage view feature, you can go through the different datasets in one view and 
 	then use the Refresh data button to refresh datasets that you determine as stale.
 
-Sensitivity labels (https://docs.microsoft.com/en-us/power-bi/admin/service-security-apply-data-sensitivity-labels)
+[Sensitivity labels](https://docs.microsoft.com/en-us/power-bi/admin/service-security-apply-data-sensitivity-labels)
 - Sensitivity labels specify which data can be exported.
 
 - Share with Free License users
@@ -1629,3 +1633,37 @@ Sensitivity labels (https://docs.microsoft.com/en-us/power-bi/admin/service-secu
 			- Enable email subscriptions for all members of the organization.
 			- Enable specific users to send email subscriptions to external users. See Invite external users to your organization.
 		- Admins can audit subscription activity by analyzing the audit logs data
+
+- PowerBI service data source limitations
+	- Dataset size limit 1GB (shared capacity). To get more need premium capacity
+	- Distinct values in a column: 1,999,999,99
+	- Row limit in Direct Query: 1,000,000
+	- Column limit: 16,000 across all tables
+
+- Create new content from Power BI service
+	- Can be from
+		- File
+			- Excel
+			- PBIX
+			- CSV
+			- XML and other text use the Get & Transform to query, transform, and load that data into an Excel or Power BI Desktop file first.
+		- Database
+			- Azure SQL
+			- Azure Warehouse
+			- SSAS
+			- Spark Hindsight
+
+- Pin an [excel table](https://docs.microsoft.com/en-us/power-bi/create-reports/service-dashboard-pin-tile-from-excel) in PowerBI service
+	- Before you need to have an excel workbook from OneDrive connected to PBI service
+		- Upload your workbook to OneDrive
+		- From PBI Get Data > Files > OneDrive - Business
+		- Navigate to location and Connect
+		- It is then added to Workbooks
+		- Changes you make in power bi will not affect automatically the OneDrive data. Unless you click edit to do so.
+	- From within an Excel workbook in Power BI. Ranges can be pinned from Excel workbooks that have been saved in your OneDrive for Business or another group-shared document library. The ranges can contain data, charts, tables, PivotTables, PivotCharts, and other Excel parts.
+	- Highlight the cells
+	- Select Pin icon
+
+
+
+
