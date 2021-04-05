@@ -1,0 +1,94 @@
+-- M Language how it words
+
+-- You can declare variables with word let 
+-- Usually you use let once then you have steps of transformation and can use
+Variables from one step to the other and
+then you can output the variable after in
+
+let
+
+	Variable = expression
+	
+in
+
+	Variable
+
+	
+-- Example
+
+let 
+variable = 1,
+variable2 = variable + 1
+in 
+variable2
+
+-- It will return 2
+	
+Here is an example with 2 steps and using a table and doing a transformation in a column	
+
+---
+
+let
+   Orders = Table.FromRecords({
+    [OrderID = 1, CustomerID = 1, Item = "fishing rod", Price = 100.0],
+    [OrderID = 1, CustomerID = 1, Item = "casa grande", Price = 100.0],
+    [OrderID = 1, CustomerID = 1, Item = "fishing rod", Price = 100.0]   
+   }),
+   #"Captalize each word" = Table.TransformColumns(Orders, {"Item", Text.Proper})
+in
+  #"Captalize each word"
+  
+-- If you want to use spaces in name variables you need a # suroudned by quotes #""
+
+-- Function: You can create functions like this and call in any of your steps
+
+let
+func = (param) => param * 2,
+calculation = func(2)
+in 
+calculation
+
+-- output is 4
+
+-- Data Structures
+
+- Lists
+	- Are surounded by {}
+	- A list can have multiple data types
+	- It is zero base index
+	- Items are separarated by comma
+	- To get an item use the List{index}
+	
+example
+
+	listOfNumbers = {1,2,3}
+	listMultipleTypes = {"String", 1, true}
+	
+let
+    myList = {"John", 33, true},
+    getItem = myList{0}
+in
+    getItem
+	
+-- returns John
+
+- Record
+	- Are surounded by []
+	- It has key and a value
+	- To access a value just use the notation record[key]
+	
+example
+
+	Record = [name="John", age=44]
+	
+-- in the query editor
+
+let
+    Source = [name = "John", age = 45],
+    getAge = Source[age]
+
+in
+    getAge
+	
+returns 45
+
