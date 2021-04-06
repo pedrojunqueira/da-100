@@ -99,6 +99,18 @@ Differences
 		- Merging and appending columns of different tables with two different sources
 		- Changing the data type of a column
 		- Running complex DAX functions
+	- Sources that support query folding
+		- Relational Databases
+		- Odata
+		- Sharepoint list
+		- Exchange
+		- Active Directory
+	- Source that DO NOT support query folding
+		- Flat Files
+		- Blobs
+		- Web (Usually)
+		- Common Data Service
+
 		
 - Optimization tips
 	- Process as much data as possible in the original data source
