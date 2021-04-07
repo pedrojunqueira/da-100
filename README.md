@@ -36,6 +36,7 @@ Azure Doc: [Get Data](https://docs.microsoft.com/en-gb/learn/modules/get-data/)
 - Importing folder and combining file (binary)
 	-  If you have multiple files that have the same schema, combine them into a single logical table
 	[Azure Docs](https://docs.microsoft.com/en-us/power-bi/transform-model/desktop-combine-binaries) 
+	-  It combines text, Excel workbook, or JSON file.
 
 - When using SQL statements. Do not use the * (wildcard) as you may be importing redundant data
 - Only import the data that you need for the report
