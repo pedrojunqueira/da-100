@@ -454,6 +454,8 @@ Differences
 	- To configure multiple columns simultaneously hold control key and select various columns
 	- You can also configure the Table properties. Just select the table
 		- In the advanced you can see the Storage mode
+	- Row Label:
+		- A row label allows you to define which column (or field) best identifies a single row in a table. For example in the Customer table you wanted to be Name. So you can ask "Display Names"
 
 - Create a Common date table there are the methods
 	- Source (e.g. EDW)
@@ -621,7 +623,7 @@ Differences
 			- If you published in PBI Service all questions asked will be there
 			- All red underlines will be terms that PBI does not understand
 			- To fix the term click in fix needed and then teach PBI what the term means in the model
-
+	
 - Implementing Row Lever Security
 	- [Azure Learning](https://docs.microsoft.com/en-gb/learn/modules/row-level-security-power-bi/)
 	- Statics Method
@@ -1568,6 +1570,7 @@ You have the option to send fewer queries . This is configured in options > quer
 			- Select More options (...) next to a dataset > Manage Permissions.
 			- An admin or member of the workspace where the dataset resides can decide during app publishing that users with permission for the app also get Build permission for the underlying datasets
 	- Once the Built Permission is created all the activity of that permission will be tracked in the dataset lineage so the owner of the dataset can track where the dataset has been used to create dataset in the organization.
+	- An app from a workspace to a group of people and later, you decide to remove access to the app for some people. Removing their access to the app doesn't automatically remove their build and re-share permissions. That's an extra step.
 
 - Configure large dataset format [source](https://docs.microsoft.com/en-us/power-bi/admin/service-premium-large-models)
 	- With Premium capacities, large datasets beyond the default limit can be enabled with the Large dataset storage format setting. 
