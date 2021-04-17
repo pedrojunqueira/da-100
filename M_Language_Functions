@@ -1,0 +1,15 @@
+Table.SelectColumns
+Returns a table that contains only specific columns.
+
+Table.RemoveColumns
+Returns a table without a specific column or columns.
+
+Table.RemoveRows
+Returns a table with the specified number of rows removed from the table starting at an offset.
+
+Table.SelectRows
+Returns a table containing only the rows that match a condition.
+
+Table.Sort
+Sorts the rows in a table using a comparisonCriteria or a default ordering if one is not specified.
+

@@ -1621,6 +1621,23 @@ Recommend a development life cycle strategy
 - It manages content in different environments (Development, Test and Production)
 - It increases productivity, Allow Faster Delivery of content, Lower manual human intervention
 
+- Best Practices to deployments
+	- Have workspaces for development and deployment datasets that will be common to many reports
+	- Have workspaces that will be for report distribution
+
+- Conditions to use deployment pipelines
+	- You're a Power BI Pro user, and you belong to an organization that has Premium capacity.
+	- Premium Per User (PPU).
+- Create a pipeline
+	- After you create you can give access to users
+	- Pipeline access enable users to view, edit, delete and share
+	- You can create a pipeline from
+		- Deployment pipeline tab
+			- After create you need to assign a workspace to the pipeline
+			- The pipeline will create clones of the workspace to create stages
+		- From Workspace: In this case you need to be the workspace admin
+
+
 - Troubleshoot data by viewing its lineage
 	- Data lineage refers to the path that data takes from the data source to the destination.
 	- The Lineage view is only accessible to Admin, Contributor, and Member roles.
