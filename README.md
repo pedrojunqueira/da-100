@@ -44,7 +44,7 @@ Azure Doc: [Get Data](https://docs.microsoft.com/en-gb/learn/modules/get-data/)
 
 - Connecting to a CosmoDB (Azure)
 - Select connection (Others)
-- If you are connecting to an endpoint for the first time, as you are in this example, make sure that you enter your account key.
+- If you are connecting to an endpoint for the first time make sure that you enter your account key.
 
 - Importing Json
 - When importing Json the file needs to be formatted in Power Query to a tabular format before go to PBI desktop
@@ -58,15 +58,22 @@ Azure Doc: [Get Data](https://docs.microsoft.com/en-gb/learn/modules/get-data/)
   data gets refreshed as you interact with visualizations 
   -	When in direct query mode there is no support for parent child relationship in DAX
   - Other DirectQuery [limitations](https://docs.microsoft.com/en-us/power-bi/connect-data/desktop-directquery-about#modeling-limitations)
-	- No Calculated tables
+	- No built-in date hierarchy
+	- Date/time support only to second accuracy
 	- No scalar Dax functions such as `left()` for calculated columns
+	- No support for parent-child DAX functions
 	- Max length of text in columns 32,764
 	- No Built in date hierarchy
-	- Always get the latest data
+	- No Clustering (AI capability)
+	- Quick Insights isn't supported
+	- Using Explore in Excel will likely result in poorer performance
+	- Limit of 1 million rows returned on any query
+	- Refresh in Power BI Desktop is needed to reflect any metadata changes
+	- Can't change from import to DirectQuery mode
 
 - Import mode change
-	- It Is possible to change import to Direct Query but not from Direct Query to Import. 
-	- If a import mode is changed to Query mode this is irreversible
+	- It Is possible to change Direct Query to import mode but not from Import to Direct Query. 
+	- If a Direct Query is changed to import mode this is irreversible
 
 Analysis Services vs. SQL Server
 
@@ -110,13 +117,13 @@ Differences
 		- Flat Files
 		- Blobs
 		- Web (Usually)
-		- Common Data Service
+		- **Common Data Service**
 
 		
 - Optimization tips
-	- Process as much data as possible in the original data source
+	- Process as much data as possible in the original data source.
 	- Use native SQL queries.  SP or CTEs
-	- Separate date and time in columns, if bound together
+	- Separate date and time in columns, if bound together. 
 
 - [Power Query ](https://docs.microsoft.com/en-gb/learn/modules/clean-data-power-bi/2-shape-data)
 	- Popular functionalities
@@ -124,8 +131,11 @@ Differences
 	- Promote headers can use the promote header in the Home Ribbon session or click the table icon next to first column (use first row as header)
 	- Can remove top N rows
 	- Can delete columns by selecting the ones you need or you can select the ones you want to keep then delete the others
-	- You can unpivot columns by selecting the columns to unpivot and the column names will be attributes and the numeric value will be value
+	- You can unpivot columns by selecting the columns to unpivot and
+		-  the column names will be **attribute** and 
+		- the numeric value will be **value**
 	- Pivot the columns is the opposite of unpivot and used to summarize and aggregate data
+	- Transpose is to switch columns to rows and rows to columns
 	- Visualize query dependency
 		- Tab "View" -> Query dependency
 
