@@ -423,7 +423,7 @@ Differences
 		- A new query is created with the current step and the following and the previous steps will be referenced to the original query.
 
 - Languages that can be used in PBI. [source](https://community.powerbi.com/t5/Community-Blog/The-Languages-of-Power-BI/ba-p/69104#:~:text=Python%20can%20also%20be%20used,More%20%7C%20Other%20%7C%20Python%20Script.)
-	- Power BI integrates a number of different data languages including DAX, "M", SQL, MDX and R. 
+	- Power BI integrates a number of different data languages including DAX, "M", SQL, MDX, Python and R. 
 	- Depending on what you want to do and where in PBI one of those languages can be used.
 	
 ## Model the Data (25-30%)
@@ -767,6 +767,7 @@ Differences
 
 - Semi Additive Measures
 	- [Learning](https://docs.microsoft.com/en-gb/learn/modules/create-measures-dax-power-bi/5-semi-additive-measures)
+	- [Learning - LASTNONBLANK](https://docs.microsoft.com/en-gb/learn/modules/dax-power-bi-time-intelligence/3-calculations)
 	- In occasions the behavior you want having a sum does not help.
 	- One example is when you are trying to `CALCULATE` an account balance by a period of time. It would be incorrect to sum a balance month over month
 	- In this scenario you can use `CALCULATE` and to manipulate the filter using another function `LASTDATE` to pick only the last date of the context.
